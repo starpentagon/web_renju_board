@@ -3242,7 +3242,6 @@ CDrawingBoard.prototype.private_CanMakeMove = function(X, Y)
 		var Value = (BOARD_BLACK === this.m_oGameTree.Get_NextMove() ? BOARD_BLACK : BOARD_WHITE);
 
 		// Сначала мы проверим, можно ли совершить данный ход
-		var OldKo = this.m_oLogicBoard.Get_Ko();
 		this.m_oLogicBoard.Set(X, Y, Value, -1);
 
 		// Проверяем ко
@@ -3256,7 +3255,6 @@ CDrawingBoard.prototype.private_CanMakeMove = function(X, Y)
 
 		// Восстанвливаем позицию на доске.
 		this.m_oLogicBoard.Set(X, Y, BOARD_EMPTY, -1);
-		this.m_oLogicBoard.Set_Ko(OldKo);
 	}
 
 	return bMove;

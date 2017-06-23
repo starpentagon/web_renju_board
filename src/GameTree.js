@@ -1307,11 +1307,6 @@ CGameTree.prototype.Execute_Move = function(X, Y, Value, bSilent)
         else
             this.m_nBlackCapt += nGroupSize;
     }
-    else
-    {
-        // Обнуляем КО
-        this.m_oBoard.Reset_Ko();
-    }
 
     this.private_UpdateNextMove(Value);
 };

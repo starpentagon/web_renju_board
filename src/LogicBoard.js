@@ -17,41 +17,6 @@
  * Time     3:26
  */
 
-function CBoardKo()
-{
-    this.m_nMove     = 0; // Значение ход, который съел ко
-    this.m_nCaptured = 0; // Значение камня, который был съеден на ко
-}
-
-CBoardKo.prototype.Reset = function()
-{
-    this.m_nMove     = 0;
-    this.m_nCaptured = 0;
-}
-CBoardKo.prototype.Copy = function()
-{
-    var NewKo = new CBoardKo();
-    NewKo.CopyFrom(this);
-    return NewKo;
-};
-CBoardKo.prototype.CopyFrom = function(OtherKo)
-{
-    this.m_nMove     = OtherKo.m_nMove;
-    this.m_nCaptured = OtherKo.m_nCaptured;
-};
-CBoardKo.prototype.Check = function(nMove, nCaptured)
-{
-    if (nCaptured === this.m_nMove && nMove === this.m_nCaptured)
-        return true;
-
-    return false;
-};
-CBoardKo.prototype.Set = function(nMove, nCaptured)
-{
-    this.m_nMove     = nMove;
-    this.m_nCaptured = nCaptured;
-};
-
 function CBoardPoint(eValue, nNum)
 {
     //this.m_eValue = Math.floor((Math.random() * 3));// (undefined === eValue ? BOARD_EMPTY : eValue);
@@ -256,8 +221,6 @@ function CLogicBoard(nW, nH)
     this.m_aBoard       = null; // Массив, в котором указаны значения пунктов на доске черный/белый/пустой
     this.private_InitBoard();
 
-    this.m_oKo = new CBoardKo();
-
     this.m_aBoardScores = []; // Массив с метками территории
     this.m_oArea        = new CAreaScoreCounter();
     this.m_oBoundary    = new CBoundaryScoreCounter();
@@ -270,7 +233,6 @@ CLogicBoard.prototype.Copy = function()
     for (var Index = 0, nCount = this.m_aBoard.length; Index < nCount; Index++)
         oNewLB.m_aBoard[Index].CopyFrom(this.m_aBoard[Index]);
 
-    oNewLB.m_oKo.CopyFrom(this.m_oKo);
     return oNewLB;
 };
 CLogicBoard.prototype.Clear = function()
@@ -281,26 +243,12 @@ CLogicBoard.prototype.Clear = function()
         this.m_aBoard[nIndex].Clear();
     }
 };
-CLogicBoard.prototype.Get_Ko = function()
-{
-    return this.m_oKo.Copy();
-};
-CLogicBoard.prototype.Set_Ko = function(Ko)
-{
-    this.m_oKo.CopyFrom(Ko);
-};
-CLogicBoard.prototype.Reset_Ko = function()
-{
-    this.m_oKo.Reset();
-};
 CLogicBoard.prototype.Reset_Size = function(nW, nH)
 {
     this.m_nW = nW;
     this.m_nH = nH;
 
     this.private_InitBoard();
-
-    this.m_oKo.Reset();
 };
 CLogicBoard.prototype.Get_Size = function()
 {
@@ -417,21 +365,7 @@ CLogicBoard.prototype.Check_Kill = function(nX, nY, eValue, bCheckKo)
 
     // Проверяем ко
     var nDeadCount = oChecker.Get_Size();
-    if (1 == nDeadCount)
-    {
-        var nMove     = Common_XYtoValue(nX, nY);
-        var nCaptured = oChecker.Get_Value(0);
-
-        if (this.m_oKo.Check(nMove, nCaptured) && true == bCheckKo)
-            return null;
-
-        this.m_oKo.Set(nMove, nCaptured);
-    }
-    else if (nDeadCount > 1)
-    {
-        this.m_oKo.Reset();
-    }
-    else if (nDeadCount <= 0)
+    if (nDeadCount <= 0)
         return null;
 
     return oChecker;
