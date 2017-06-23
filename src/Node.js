@@ -1,4 +1,13 @@
 /**
+ * Copyright (C) 2017, Koichi Nabetani <admin@starpentagon.net>,
+   except where otherwise indicated.
+
+  Original source codes are:
+   Copyright 2014 the HtmlGoBoard project authors.
+   Originally under LGPL v3.0 in https://github.com/IlyaKirillov/GoProject.
+*/
+
+/**
  * Copyright 2014 the HtmlGoBoard project authors.
  * All rights reserved.
  * Project  WebSDK
@@ -34,7 +43,6 @@ function CNode(oGameTree)
     this.m_aCommands  = [];                        // Массив команд данной ноды
     this.m_oMove      = new CMove(0, BOARD_EMPTY); // Основной ход данной ноды (если он есть)
     this.m_sComment   = "";                        // Комментарий
-    this.m_oTerritory = new CTerritory(false, {}); // Метки территории (если в данной ноде есть подсчет очков)
     this.m_oNavInfo   = {X : -1, Y : -1, Num : -1};// Позиция данной ноды в навигаторе и номер данного хода
     this.m_bLoaded    = false;                     // Была ли данная нода в исходном загруженном файле.
     this.m_oColorMap  = {};                        // Карта цветов
@@ -82,7 +90,6 @@ CNode.prototype.Reset_ToOrigin = function(oOriginNode)
 		var oCommand = oOriginNode.m_aCommands[nCommandIndex];
 		this.m_aCommands.push(oCommand.Copy());
 	}
-	this.m_oTerritory.CopyFrom(oOriginNode.m_oTerritory);
 	this.m_oMove = oOriginNode.m_oMove.Copy();
 };
 CNode.prototype.Get_NodeById = function(sId)
@@ -148,7 +155,6 @@ CNode.prototype.Clear = function()
     this.m_aCommands  = [];
     this.m_oMove      = new CMove(0, BOARD_EMPTY);
     this.m_sComment   = "";
-    this.m_oTerritory = new CTerritory(false, {});
 };
 CNode.prototype.Get_Next = function(Index)
 {
@@ -282,42 +288,6 @@ CNode.prototype.Set_Comment = function(sComment)
 CNode.prototype.Get_Comment = function()
 {
     return this.m_sComment;
-};
-CNode.prototype.Is_TerritoryUse = function()
-{
-    return this.m_oTerritory.Is_Use();
-};
-CNode.prototype.Is_TerritoryForceUse = function()
-{
-    return this.m_oTerritory.Is_ForceUse();
-};
-CNode.prototype.Set_TerritoryUse = function(Use)
-{
-    this.m_oTerritory.Set_Use(Use);
-};
-CNode.prototype.Set_TerritoryForceUse = function(Use)
-{
-    this.m_oTerritory.Set_ForceUse(Use);
-};
-CNode.prototype.Add_TerritoryPoint = function(Pos, Value)
-{
-    this.m_oTerritory.Add_Point(Pos, Value);
-};
-CNode.prototype.Remove_TerritoryPoint = function(Pos)
-{
-    this.m_oTerritory.Remove_Point(Pos);
-};
-CNode.prototype.Clear_TerritoryPoints = function()
-{
-    this.m_oTerritory.Clear_Points();
-};
-CNode.prototype.Fill_TerritoryToLogicBoard = function(LogicBoard)
-{
-    this.m_oTerritory.Fill_PointsToLogicBoard(LogicBoard);
-};
-CNode.prototype.Fill_TerritoryFromLogicBoard = function(LogicBoard)
-{
-    this.m_oTerritory.Fill_PointsFromLogicBoard(LogicBoard);
 };
 CNode.prototype.Get_MainVariantLen = function()
 {

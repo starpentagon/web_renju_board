@@ -21,7 +21,6 @@
 var EBoardMode =
 {
     Move          : 0,
-    CountScores   : 1,
     AddRemove     : 2,
     AddMarkTr     : 3,
     AddMarkSq     : 4,
@@ -709,18 +708,10 @@ CDrawingBoard.prototype.Set_Mode = function(eMode)
 
     if (this.m_eMode !== eMode)
     {
-        if (EBoardMode.CountScores === this.m_eMode)
-            this.m_oGameTree.Clear_TerritoryPoints();
-
         this.m_eMode = eMode;
         this.private_UpdateTargetType();
 
-        if (EBoardMode.CountScores === eMode)
-        {
-            this.m_oLogicBoard.Init_CountScores();
-            this.m_oGameTree.Count_Scores();
-        }
-        else if (EBoardMode.ScoreEstimate === eMode)
+        if (EBoardMode.ScoreEstimate === eMode)
         {
             this.Estimate_Scores();
         }
@@ -731,19 +722,6 @@ CDrawingBoard.prototype.Set_Mode = function(eMode)
 CDrawingBoard.prototype.Get_Mode = function()
 {
     return this.m_eMode;
-};
-CDrawingBoard.prototype.Start_CountScoresInMatch = function()
-{
-	this.m_eMode = EBoardMode.CountScores;
-	this.private_UpdateTargetType();
-	this.m_oGameTree.Count_Scores();
-	this.m_oGameTree.Update_InterfaceState();
-};
-CDrawingBoard.prototype.End_CountScoresInMatch = function()
-{
-	this.m_eMode = EBoardMode.Move;
-	this.private_UpdateTargetType();
-	this.m_oGameTree.Update_InterfaceState();
 };
 CDrawingBoard.prototype.private_DrawVariants = function()
 {
@@ -2871,33 +2849,6 @@ CDrawingBoard.prototype.private_AddMove = function(X, Y, event)
             if (this.m_oGameTree.Get_CurNode().Count_NodeNumber() >= this.m_oPresentation.Get_NodesCountInSlide())
                 this.m_oPresentation.On_EndSgfSlide();
         }
-    }
-};
-CDrawingBoard.prototype.private_CountScores = function(X, Y, event)
-{
-	var oHandler = this.m_oGameTree.Get_Handler();
-	if (oHandler)
-	{
-		if (oHandler["MarkLife"])
-		{
-			if (BOARD_EMPTY === this.m_oLogicBoard.Get(X, Y))
-				return;
-
-			var nOwner = this.m_oLogicBoard.Get_ScorePoint(X, Y);
-			oHandler["MarkLife"](X, Y, (BOARD_BLACK !== nOwner && BOARD_WHITE !== nOwner ? false : true));
-		}
-		return;
-	}
-
-    if (true === event.CtrlKey )
-    {
-        // Возвращаемся к режиму добавления ходов
-        this.Set_Mode(EBoardMode.Move);
-    }
-    else
-    {
-        this.m_oLogicBoard.Select_DeadGroup(X, Y);
-        this.m_oGameTree.Count_Scores();
     }
 };
 CDrawingBoard.prototype.private_AddOrRemoveStones = function(X, Y, event)

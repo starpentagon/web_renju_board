@@ -821,14 +821,6 @@ CGameTree.prototype.Add_TextMark = function(sText, Pos)
 {
     this.m_oCurNode.Add_TextMark(sText, Pos);
 };
-CGameTree.prototype.Add_TerritoryPoint = function(Value, arrPos)
-{
-    if (!this.m_oCurNode.Is_TerritoryUse())
-        this.m_oCurNode.Set_TerritoryUse(true);
-
-    for (var Index = 0, Count = arrPos.length; Index < Count; Index++)
-        this.m_oCurNode.Add_TerritoryPoint(arrPos[Index], Value);
-};
 CGameTree.prototype.Add_BlackTimeLeft = function(Time)
 {
     this.m_oCurNode.Add_BlackTimeLeft(Time);
@@ -836,106 +828,6 @@ CGameTree.prototype.Add_BlackTimeLeft = function(Time)
 CGameTree.prototype.Add_WhiteTimeLeft = function(Time)
 {
     this.m_oCurNode.Add_WhiteTimeLeft(Time);
-};
-CGameTree.prototype.Update_TerritoryMarks = function()
-{
-    if (!this.m_oCurNode.Is_TerritoryUse())
-        this.m_oCurNode.Set_TerritoryUse(true);
-
-    this.m_oCurNode.Fill_TerritoryFromLogicBoard(this.m_oBoard);
-};
-CGameTree.prototype.Clear_TerritoryPoints = function()
-{
-	this.m_oBoard.Clear_Scores();
-
-    if (true === this.m_oCurNode.Is_TerritoryUse())
-    {
-        this.m_oCurNode.Set_TerritoryUse(false);
-        this.m_oCurNode.Clear_TerritoryPoints();
-    }
-
-    if (this.m_oDrawingBoard)
-    {
-        this.m_oDrawingBoard.Remove_AllMarks();
-
-        for (var CommandIndex = 0, CommandsCount = this.m_oCurNode.Get_CommandsCount(); CommandIndex < CommandsCount; CommandIndex++)
-        {
-            var Command = this.m_oCurNode.Get_Command( CommandIndex );
-            var Command_Type  = Command.Get_Type();
-            var Command_Value = Command.Get_Value();
-            var Command_Count = Command.Get_Count();
-
-            switch(Command_Type)
-            {
-                case ECommand.CR:
-                {
-                    for (var Index = 0; Index < Command_Count; Index++)
-                    {
-                        var Pos = Common_ValuetoXY(Command_Value[Index]);
-                        this.m_oDrawingBoard.Add_Mark(new CDrawingMark(Pos.X, Pos.Y, EDrawingMark.Cr, ""));
-                    }
-                    break;
-                }
-                case ECommand.MA:
-                {
-                    for (var Index = 0; Index < Command_Count; Index++)
-                    {
-                        var Pos = Common_ValuetoXY(Command_Value[Index]);
-                        this.m_oDrawingBoard.Add_Mark(new CDrawingMark(Pos.X, Pos.Y, EDrawingMark.X, ""));
-                    }
-                    break;
-                }
-                case ECommand.SQ:
-                {
-                    for (var Index = 0; Index < Command_Count; Index++)
-                    {
-                        var Pos = Common_ValuetoXY(Command_Value[Index]);
-                        this.m_oDrawingBoard.Add_Mark(new CDrawingMark(Pos.X, Pos.Y, EDrawingMark.Sq, ""));
-                    }
-                    break;
-                }
-                case ECommand.TR:
-                {
-                    for (var Index = 0; Index < Command_Count; Index++)
-                    {
-                        var Pos = Common_ValuetoXY(Command_Value[Index]);
-                        this.m_oDrawingBoard.Add_Mark(new CDrawingMark(Pos.X, Pos.Y, EDrawingMark.Tr, ""));
-                    }
-                    break;
-                }
-                case ECommand.LB:
-                {
-                    var Pos = Common_ValuetoXY(Command_Value.Pos);
-                    this.m_oDrawingBoard.Add_Mark(new CDrawingMark(Pos.X, Pos.Y, EDrawingMark.Tx, Command_Value.Text));
-                    break;
-                }
-                case ECommand.RM:
-                {
-                    for (var Index = 0; Index < Command_Count; Index++)
-                    {
-                        var Pos = Common_ValuetoXY(Command_Value[Index]);
-                        this.m_oDrawingBoard.Remove_Mark(Pos.X, Pos.Y);
-                    }
-                    break;
-                }
-            }
-        }
-
-        if (this.m_oCurNode.Have_Move())
-        {
-            var oMove = this.m_oCurNode.Get_Move();
-            var X = oMove.Get_X();
-            var Y = oMove.Get_Y();
-
-            this.m_oDrawingBoard.Set_LastMoveMark(X, Y);
-        }
-        else
-        {
-            this.m_oDrawingBoard.Set_LastMoveMark(-1, -1);
-        }
-
-        this.m_oDrawingBoard.Draw_Marks();
-    }
 };
 CGameTree.prototype.Remove_CurNode = function()
 {
@@ -999,16 +891,9 @@ CGameTree.prototype.Execute_CurNodeCommands = function()
 
     if (this.m_oDrawingBoard)
     {
-        // При переходе к ноде отключаем подсчет очков, если он был включен
-        if (EBoardMode.CountScores === this.m_oDrawingBoard.Get_Mode())
-            this.m_oDrawingBoard.Set_Mode(EBoardMode.Move);
-
         // Очистим доску от отметок и комментариев предыдущей ноды
         this.m_oDrawingBoard.Remove_AllMarks();
         this.Show_Variants();
-        
-        if (this.m_oCurNode.Is_TerritoryForceUse())
-            this.m_oBoard.Init_CountScores(true);
     }
 
     for (var CommandIndex = 0, CommandsCount = this.m_oCurNode.Get_CommandsCount(); CommandIndex < CommandsCount; CommandIndex++)
@@ -1161,18 +1046,6 @@ CGameTree.prototype.Execute_CurNodeCommands = function()
         }
         else
             this.m_oDrawingBoard.Set_LastMoveMark(-1, -1);
-
-        if (this.m_oCurNode.Is_TerritoryForceUse())
-        {
-            this.m_oCurNode.Fill_TerritoryToLogicBoard(this.m_oBoard);
-            this.Count_Scores();
-            this.m_oDrawing.m_eMode = EBoardMode.CountScores;
-            this.Update_InterfaceState();
-        }
-        else if (this.m_oCurNode.Is_TerritoryUse())
-        {
-            this.m_oDrawingBoard.Set_Mode(EBoardMode.CountScores);
-        }
 
         this.m_oDrawingBoard.Draw_Marks();
         this.m_oCurNode.Draw_ColorMap(this.m_oDrawingBoard);

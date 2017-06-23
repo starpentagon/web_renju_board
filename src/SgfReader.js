@@ -1,4 +1,13 @@
 /**
+ * Copyright (C) 2017, Koichi Nabetani <admin@starpentagon.net>,
+   except where otherwise indicated.
+
+  Original source codes are:
+   Copyright 2014 the HtmlGoBoard project authors.
+   Originally under LGPL v3.0 in https://github.com/IlyaKirillov/GoProject.
+*/
+
+/**
  * Copyright 2014 the HtmlGoBoard project authors.
  * All rights reserved.
  * Project  WebSDK
@@ -870,8 +879,6 @@ CSgfReader.prototype.private_ReadTerritory = function(Value)
         }
         this.m_nPos++;
     }
-
-    this.m_oGameTree.Add_TerritoryPoint(Value, arrPos);
 };
 CSgfReader.prototype.private_ReadUS = function()
 {
