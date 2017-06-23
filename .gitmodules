@@ -1,0 +1,3 @@
+[submodule "GoProject"]
+	path = GoProject
+	url = https://github.com/IlyaKirillov/GoProject.git
