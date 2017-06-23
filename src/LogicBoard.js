@@ -6,7 +6,7 @@
   Original source codes are:
    Copyright 2014 the HtmlGoBoard project authors.
    Originally under LGPL v3.0 in https://github.com/IlyaKirillov/GoProject.
- */
+*/
 
 /**
  * Copyright 2014 the HtmlGoBoard project authors.
