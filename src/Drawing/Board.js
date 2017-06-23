@@ -3246,21 +3246,14 @@ CDrawingBoard.prototype.private_MakeMove = function(X, Y)
 CDrawingBoard.prototype.private_CanMakeMove = function(X, Y)
 {
 	var bMove = false;
+
 	if (BOARD_EMPTY === this.m_oLogicBoard.Get(X, Y))
 	{
 		var Value = (BOARD_BLACK === this.m_oGameTree.Get_NextMove() ? BOARD_BLACK : BOARD_WHITE);
 
 		// Сначала мы проверим, можно ли совершить данный ход
 		this.m_oLogicBoard.Set(X, Y, Value, -1);
-
-		// Проверяем ко
-		if (null !== this.m_oLogicBoard.Check_Kill(X, Y, Value, true))
-			bMove = true;
-		// Запрещаем самоубийство
-		else if (null !== this.m_oLogicBoard.Check_Dead(X, Y, Value))
-			bMove = false;
-		else
-			bMove = true;
+		bMove = true;
 
 		// Восстанвливаем позицию на доске.
 		this.m_oLogicBoard.Set(X, Y, BOARD_EMPTY, -1);

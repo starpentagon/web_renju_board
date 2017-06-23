@@ -49,60 +49,6 @@ CBoardPoint.prototype.Get_Num = function()
 {
     return this.m_nNum;
 };
-
-function CDeadGroupChecker()
-{
-    this.m_aCurrentGroup = [];
-    this.m_aSavedGroup   = [];
-}
-CDeadGroupChecker.prototype.Reset_Current = function()
-{
-    this.m_aCurrentGroup = [];
-};
-CDeadGroupChecker.prototype.Save_Current = function()
-{
-    // Здесь мы не проверяем совпали ли группы. Это должно происходить выше.
-    this.m_aSavedGroup = this.m_aSavedGroup.concat(this.m_aCurrentGroup);
-    this.m_aCurrentGroup = [];
-};
-CDeadGroupChecker.prototype.Get_Size = function()
-{
-    return this.m_aSavedGroup.length;
-};
-CDeadGroupChecker.prototype.Get_Value = function(Index)
-{
-    return this.m_aSavedGroup[Index];
-};
-/**
- * Проверяем находится ли заданный пункт в группе, если нет, тогда добавляем его в группу
- * @param nX
- * @param nY
- * @returns {boolean}
- */
-CDeadGroupChecker.prototype.Is_StoneInCurrentGroup = function(nX, nY)
-{
-    var nValue = Common_XYtoValue(nX, nY);
-    for (var nIndex = 0, nCount = this.m_aCurrentGroup.length; nIndex < nCount; nIndex++)
-    {
-        if (this.m_aCurrentGroup[nIndex] == nValue)
-            return true;
-    }
-
-    // Добавляем камень в группу
-    this.m_aCurrentGroup.push(nValue);
-    return false;
-};
-CDeadGroupChecker.prototype.Is_StoneInSavedGroup = function(nX, nY)
-{
-    var nValue = Common_XYtoValue(nX, nY);
-    for (var nIndex = 0, nCount = this.m_aSavedGroup.length; nIndex < nCount; nIndex++)
-    {
-        if (this.m_aSavedGroup[nIndex] == nValue)
-            return true;
-    }
-    return false;
-};
-
 function CBoundaryScoreCounter()
 {
     this.m_aPoints = {};
@@ -328,47 +274,6 @@ CLogicBoard.prototype.Is_HandiPoint = function(nX, nY)
     }
 
     return false;
-};
-CLogicBoard.prototype.Check_Dead = function(nX, nY, eValue)
-{
-    var oChecker = new CDeadGroupChecker();
-    this.private_CheckDead(nX, nY, eValue, oChecker);
-
-    if (oChecker.Get_Size() > 0)
-        return oChecker;
-    else
-        return null;
-};
-CLogicBoard.prototype.Check_Kill = function(nX, nY, eValue, bCheckKo)
-{
-    var eOtherValue;
-    switch(eValue)
-    {
-        case BOARD_BLACK : eOtherValue = BOARD_WHITE; break;
-        case BOARD_WHITE : eOtherValue = BOARD_BLACK; break;
-        default : return null;
-    }
-
-    var oChecker = new CDeadGroupChecker();
-
-    if (true !== oChecker.Is_StoneInSavedGroup(nX + 1, nY))
-        this.private_CheckDead(nX + 1, nY, eOtherValue, oChecker);
-
-    if (true !== oChecker.Is_StoneInSavedGroup(nX - 1, nY))
-        this.private_CheckDead(nX - 1, nY, eOtherValue, oChecker);
-
-    if (true !== oChecker.Is_StoneInSavedGroup(nX, nY + 1))
-        this.private_CheckDead(nX, nY + 1, eOtherValue, oChecker);
-
-    if (true !== oChecker.Is_StoneInSavedGroup(nX, nY - 1))
-        this.private_CheckDead(nX, nY - 1, eOtherValue, oChecker);
-
-    // Проверяем ко
-    var nDeadCount = oChecker.Get_Size();
-    if (nDeadCount <= 0)
-        return null;
-
-    return oChecker;
 };
 CLogicBoard.prototype.private_InitBoard = function()
 {

@@ -1278,45 +1278,6 @@ CGameTree.prototype.Execute_Move = function(X, Y, Value, bSilent)
         this.m_oSound.Play_PlaceStone();
 
     this.private_SetBoardPoint(X, Y, Value, this.m_nMovesCount + 1, bSilent);
-
-    // Проверяем, убиваем ли мы данным ходом чужие камни (без проверки правила КО)
-    var oDeadChecker = null;
-    if (null !== (oDeadChecker = this.m_oBoard.Check_Kill(X, Y, Value, false)) && oDeadChecker.Get_Size() > 0)
-    {
-        var nGroupSize = oDeadChecker.Get_Size();
-        for (var Index = 0; Index < nGroupSize; Index++)
-        {
-            var Pos = Common_ValuetoXY(oDeadChecker.Get_Value(Index));
-            this.private_SetBoardPoint(Pos.X, Pos.Y, BOARD_EMPTY, -1);
-        }
-
-        if (this.m_oSound && true !== bSilent)
-            this.m_oSound.Play_CaptureStones(oDeadChecker.Get_Size());
-
-        if (BOARD_BLACK === Value)
-            this.m_nBlackCapt += nGroupSize;
-        else
-            this.m_nWhiteCapt += nGroupSize;
-    }
-    // Проверяем самоубийство
-    else if (null !== (oDeadChecker = this.m_oBoard.Check_Dead(X, Y, Value, false)) && oDeadChecker.Get_Size() > 0)
-    {
-        var nGroupSize = oDeadChecker.Get_Size();
-        for (var Index = 0; Index < nGroupSize; Index++)
-        {
-            var Pos = Common_ValuetoXY(oDeadChecker.Get_Value(Index));
-            this.private_SetBoardPoint(Pos.X, Pos.Y, BOARD_EMPTY, -1);
-        }
-
-        if (this.m_oSound && true !== bSilent)
-            this.m_oSound.Play_CaptureStones(oDeadChecker.Get_Size());
-
-        if (BOARD_BLACK === Value)
-            this.m_nWhiteCapt += nGroupSize;
-        else
-            this.m_nBlackCapt += nGroupSize;
-    }
-
     this.private_UpdateNextMove(Value);
 };
 CGameTree.prototype.GoTo_Next = function(bForce)
