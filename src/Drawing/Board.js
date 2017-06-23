@@ -689,18 +689,6 @@ CDrawingBoard.prototype.Set_GameTree = function(oGameTree)
 
     this.Reset_ViewPort();
 };
-CDrawingBoard.prototype.Estimate_Scores = function()
-{
-    this.m_oLogicBoard.Init_ScoreEstimate();
-    var oResult = this.m_oLogicBoard.Estimate_Scores(this);
-    if (this.m_oEventsCatcher)
-    {
-        var nResult = oResult.BlackReal + this.m_oGameTree.Get_BlackCapt() - oResult.WhiteReal - this.m_oGameTree.Get_WhiteCapt() - this.m_oGameTree.Get_Komi();
-        this.m_oEventsCatcher.On_EstimateEnd(oResult.BlackReal, oResult.WhiteReal, oResult.BlackPotential, oResult.WhitePotential, nResult);
-    }
-
-    this.m_oGameTree.Update_InterfaceState();
-};
 CDrawingBoard.prototype.Set_Mode = function(eMode)
 {
     if (!(this.m_oGameTree.m_nEditingFlags & EDITINGFLAGS_BOARDMODE) && eMode !== EBoardMode.ScoreEstimate && eMode !== EBoardMode.ViewPort)
@@ -710,11 +698,6 @@ CDrawingBoard.prototype.Set_Mode = function(eMode)
     {
         this.m_eMode = eMode;
         this.private_UpdateTargetType();
-
-        if (EBoardMode.ScoreEstimate === eMode)
-        {
-            this.Estimate_Scores();
-        }
 
         this.m_oGameTree.Update_InterfaceState();
     }
@@ -1937,15 +1920,6 @@ CDrawingBoard.prototype.private_UpdateTargetType = function()
 
         break;
     }
-    case EBoardMode.CountScores:
-    {
-        if (BOARD_BLACK === Value)
-            eTargetType = EBoardTargetType.WhiteX;
-        else if (BOARD_WHITE === Value)
-            eTargetType = EBoardTargetType.BlackX;
-
-        break;
-    }
     case EBoardMode.AddRemove:
     {
         if (BOARD_BLACK === Value)
@@ -2633,7 +2607,6 @@ CDrawingBoard.prototype.private_HandleMouseDown = function(X, Y, event)
     switch(this.m_eMode)
     {
         case EBoardMode.Move         : this.private_AddMove          (X,Y, event); break;
-        case EBoardMode.CountScores  : this.private_CountScores      (X,Y, event); break;
         case EBoardMode.AddRemove    : this.private_AddOrRemoveStones(X,Y, event); break;
         case EBoardMode.AddMarkTr    : this.private_AddTriangle      (X,Y, event); break;
         case EBoardMode.AddMarkSq    : this.private_AddSquare        (X,Y, event); break;
@@ -3212,18 +3185,6 @@ CDrawingBoard.prototype.private_CanMakeMove = function(X, Y)
 
 	return bMove;
 };
-CDrawingBoard.prototype.private_ScoreEstimate = function(X, Y, event)
-{
-    this.m_oLogicBoard.Mark_DeadGroupForEstimate(X, Y);
-    var oResult = this.m_oLogicBoard.Estimate_Scores(this);
-    if (this.m_oEventsCatcher)
-    {
-        var nResult = oResult.BlackReal + this.m_oGameTree.Get_BlackCapt() - oResult.WhiteReal - this.m_oGameTree.Get_WhiteCapt() - this.m_oGameTree.Get_Komi();
-        this.m_oEventsCatcher.On_EstimateEnd(oResult.BlackReal, oResult.WhiteReal, oResult.BlackPotential, oResult.WhitePotential, nResult);
-    }
-    this.Draw_Marks();
-    this.private_UpdateTargetType();
-};
 CDrawingBoard.prototype.private_HandleKeyDown = function(Event)
 {
     if (EBoardMode.ScoreEstimate === this.m_eMode || EBoardMode.ViewPort === this.m_eMode)
@@ -3431,11 +3392,6 @@ CDrawingBoard.prototype.private_HandleKeyDown = function(Event)
     else if (112 === KeyCode) // F1
     {
         this.Set_Mode(EBoardMode.Move);
-        bRetValue = true;
-    }
-    else if (113 === KeyCode) // F2
-    {
-        this.Set_Mode(EBoardMode.CountScores);
         bRetValue = true;
     }
     else if (114 === KeyCode) // F3

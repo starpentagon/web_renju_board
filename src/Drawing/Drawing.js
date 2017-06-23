@@ -1,6 +1,15 @@
 "use strict";
 
 /**
+ * Copyright (C) 2017, Koichi Nabetani <admin@starpentagon.net>,
+   except where otherwise indicated.
+
+  Original source codes are:
+   Copyright 2014 the HtmlGoBoard project authors.
+   Originally under LGPL v3.0 in https://github.com/IlyaKirillov/GoProject.
+*/
+
+/**
  * Copyright 2014 the HtmlGoBoard project authors.
  * All rights reserved.
  * Project  WebSDK
@@ -954,7 +963,6 @@ CDrawing.prototype.Create_BoardWithNavigateButtons = function(sDivId)
     oDrawingToolbar.Add_Control(new CDrawingButtonNextVariant(this), 36, 1, EToolbarFloat.Left);
     oDrawingToolbar.Add_Control(new CDrawingButtonPrevVariant(this), 36, 1, EToolbarFloat.Left);
     oDrawingToolbar.Add_Control(new CDrawingButtonEditModeMove(this), 36, 1, EToolbarFloat.Left);
-    oDrawingToolbar.Add_Control(new CDrawingButtonEditModeScores(this), 36, 1, EToolbarFloat.Left);
     oDrawingToolbar.Add_Control(new CDrawingButtonEditModeAddRem(this), 36, 1, EToolbarFloat.Left);
     oDrawingToolbar.Add_Control(new CDrawingButtonEditModeTr(this), 36, 1, EToolbarFloat.Left);
     oDrawingToolbar.Add_Control(new CDrawingButtonEditModeSq(this), 36, 1, EToolbarFloat.Left);
@@ -1897,9 +1905,6 @@ CDrawing.prototype.Update_InterfaceState = function(oIState)
     // BoardMode
     for (var Index = 0, Count = this.m_oButtons.BoardModeMove.length; Index < Count; Index++)
         this.m_oButtons.BoardModeMove[Index].Set_Selected(oIState.BoardMode === EBoardMode.Move);
-
-    for (var Index = 0, Count = this.m_oButtons.BoardModeScores.length; Index < Count; Index++)
-        this.m_oButtons.BoardModeScores[Index].Set_Selected(oIState.BoardMode === EBoardMode.CountScores);
 
     for (var Index = 0, Count = this.m_oButtons.BoardModeEditor.length; Index < Count; Index++)
         this.m_oButtons.BoardModeEditor[Index].Set_Selected(oIState.BoardMode === EBoardMode.AddRemove);

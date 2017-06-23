@@ -1682,9 +1682,7 @@ CGameTree.prototype.Update_InterfaceState = function(bUpdateInfo)
 
         this.m_oDrawing.Update_InterfaceState(oIState);
 
-        if (this.m_oDrawingBoard && EBoardMode.CountScores === this.m_oDrawingBoard.Get_Mode())
-            this.m_oDrawing.Update_Scores(this.Get_BlackScores(), this.Get_WhiteScores());
-        else
+        if (this.m_oDrawingBoard)
             this.m_oDrawing.Update_Captured(this.Get_BlackCapt(), this.Get_WhiteCapt());
 
         if (bUpdateInfo)

@@ -1,6 +1,15 @@
 "use strict";
 
 /**
+ * Copyright (C) 2017, Koichi Nabetani <admin@starpentagon.net>,
+   except where otherwise indicated.
+
+  Original source codes are:
+   Copyright 2014 the HtmlGoBoard project authors.
+   Originally under LGPL v3.0 in https://github.com/IlyaKirillov/GoProject.
+*/
+
+/**
  * Copyright 2014 the HtmlGoBoard project authors.
  * All rights reserved.
  * Project  WebSDK
@@ -705,67 +714,6 @@ CDrawingButtonEditModeMove.prototype.private_GetHint = function()
 CDrawingButtonEditModeMove.prototype.private_RegisterButton = function()
 {
     this.m_oDrawing.Register_EditModeMoveButton(this);
-};
-//----------------------------------------------------------------------------------------------------------------------
-// Кнопка включения режима подсчета очков
-//----------------------------------------------------------------------------------------------------------------------
-function CDrawingButtonEditModeScores(oDrawing)
-{
-    CDrawingButtonEditModeScores.superclass.constructor.call(this, oDrawing);
-}
-CommonExtend(CDrawingButtonEditModeScores, CDrawingButtonBase);
-
-CDrawingButtonEditModeScores.prototype.private_DrawOnCanvas = function(Canvas, Size, X_off, Y_off, bDisabled, W, H, BackColor, FillColor)
-{
-    var oImageData = Canvas.createImageData(Size, Size);
-    var D0 = (Size / 5) | 0;
-    var D1 = (Size * 4 / 5) | 0;
-    for (var i = 0; i < Size; i++)
-    {
-        for (var j = 0; j < Size; j++)
-        {
-            var Index = (i * Size + j) * 4;
-
-            if (i >= D0 && i <= D1 && j >= D0 && j <= D1)
-            {
-                if ((Size - i) >= j || i === D0 || i === D1 || j === D0 || j === D1)
-                {
-                    oImageData.data[Index + 0] = 0;
-                    oImageData.data[Index + 1] = 0;
-                    oImageData.data[Index + 2] = 0;
-                    oImageData.data[Index + 3] = 255;
-                }
-                else
-                {
-                    oImageData.data[Index + 0] = 255;
-                    oImageData.data[Index + 1] = 255;
-                    oImageData.data[Index + 2] = 255;
-                    oImageData.data[Index + 3] = 255;
-                }
-            }
-            else
-            {
-                oImageData.data[Index + 0] = BackColor.r;
-                oImageData.data[Index + 1] = BackColor.g;
-                oImageData.data[Index + 2] = BackColor.b;
-                oImageData.data[Index + 3] = BackColor.a;
-            }
-        }
-    }
-
-    Canvas.putImageData(oImageData, X_off, Y_off);
-};
-CDrawingButtonEditModeScores.prototype.private_HandleMouseDown = function()
-{
-    this.m_oGameTree.Get_DrawingBoard().Set_Mode(EBoardMode.CountScores);
-};
-CDrawingButtonEditModeScores.prototype.private_GetHint = function()
-{
-    return (window.g_oLocalization ? window.g_oLocalization.gameRoom.button.hint.editModeScores : "Count Scores") + " (F2)";
-};
-CDrawingButtonEditModeScores.prototype.private_RegisterButton = function()
-{
-    this.m_oDrawing.Register_EditModeScoresButton(this);
 };
 //----------------------------------------------------------------------------------------------------------------------
 // Кнопка включения режима редактирования ноды
@@ -1640,7 +1588,6 @@ function CDrawingButtonBoardMode(oDrawing)
     oToolbarElementWrapper.appendChild(oToolbarElement);
 
     this.m_oButtonMove   = new CDrawingButtonEditModeMove(oDrawing);
-    this.m_oButtonScores = new CDrawingButtonEditModeScores(oDrawing);
     this.m_oButtonAddRem = new CDrawingButtonEditModeAddRem(oDrawing);
     this.m_oButtonTr     = new CDrawingButtonEditModeTr(oDrawing);
     this.m_oButtonSq     = new CDrawingButtonEditModeSq(oDrawing);
@@ -1652,7 +1599,6 @@ function CDrawingButtonBoardMode(oDrawing)
 
     var oDrawingToolbar = new CDrawingToolbar(oDrawing);
     oDrawingToolbar.Add_Control(this.m_oButtonMove, 36, 1, EToolbarFloat.Left);
-    oDrawingToolbar.Add_Control(this.m_oButtonScores, 36, 1, EToolbarFloat.Left);
     oDrawingToolbar.Add_Control(this.m_oButtonAddRem, 36, 1, EToolbarFloat.Left);
     oDrawingToolbar.Add_Control(this.m_oButtonTr, 36, 1, EToolbarFloat.Left);
     oDrawingToolbar.Add_Control(this.m_oButtonSq, 36, 1, EToolbarFloat.Left);
@@ -1770,7 +1716,6 @@ CDrawingButtonBoardMode.prototype.On_UpdateBoardMode = function(eBoardMode)
     switch (eBoardMode)
     {
     case EBoardMode.Move         : this.m_oImageData = this.m_oButtonMove.m_oImageData; break;
-    case EBoardMode.CountScores  : this.m_oImageData = this.m_oButtonScores.m_oImageData; break;
     case EBoardMode.AddRemove    : this.m_oImageData = this.m_oButtonAddRem.m_oImageData; break;
     case EBoardMode.AddMarkTr    : this.m_oImageData = this.m_oButtonTr.m_oImageData; break;
     case EBoardMode.AddMarkSq    : this.m_oImageData = this.m_oButtonSq.m_oImageData; break;
