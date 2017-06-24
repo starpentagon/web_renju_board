@@ -49,72 +49,6 @@ CBoardPoint.prototype.Get_Num = function()
 {
     return this.m_nNum;
 };
-function CBoundaryScoreCounter()
-{
-    this.m_aPoints = {};
-}
-CBoundaryScoreCounter.prototype.Clear = function()
-{
-    this.m_aPoints = {};
-};
-CBoundaryScoreCounter.prototype.Is_PointIn = function(X, Y)
-{
-    var Place = Common_XYtoValue(X, Y);
-    if (undefined !== this.m_aPoints[Place])
-        return true;
-
-    this.m_aPoints[Place] = 1;
-    return false;
-};
-CBoundaryScoreCounter.prototype.Remove = function(X, Y)
-{
-    var Place = Common_XYtoValue(X, Y);
-    if (undefined !== this.m_aPoints[Place])
-        delete this.m_aPoints[Place];
-};
-
-function CLogicGroup()
-{
-    this.m_oStones = {};
-    this.m_nValue  = null;
-}
-CLogicGroup.prototype.Is_PointIn = function(X, Y, Value)
-{
-    if (BOARD_EMPTY === Value)
-        return null;
-
-    var PosValue = Common_XYtoValue(X, Y);
-    if (null === this.m_nValue)
-    {
-        this.m_nValue = Value;
-        this.m_oStones[PosValue] = 1;
-        return false;
-    }
-
-    if (Value !== this.m_nValue)
-        return null;
-
-    if (undefined !== this.m_oStones[PosValue])
-        return true;
-
-    this.m_oStones[PosValue] = 1;
-    return false;
-};
-CLogicGroup.prototype.Get_PointsArray = function()
-{
-    var aArray = [];
-    for (var Pos in this.m_oStones)
-    {
-        aArray.push(Pos);
-    }
-    return aArray;
-};
-CLogicGroup.prototype.Get_Value = function()
-{
-    return this.m_nValue;
-};
-
-
 function CAreaScoreCounter()
 {
     this.m_oArea  = {};
@@ -169,8 +103,6 @@ function CLogicBoard(nW, nH)
 
     this.m_aBoardScores = []; // Массив с метками территории
     this.m_oArea        = new CAreaScoreCounter();
-    this.m_oBoundary    = new CBoundaryScoreCounter();
-
 }
 CLogicBoard.prototype.Copy = function()
 {
@@ -452,45 +384,6 @@ CLogicBoard.prototype.private_CheckEmptyAreaByXY = function(X, Y)
         this.private_CheckEmptyAreaByXY(X, Y - 1);
     }
 };
-CLogicBoard.prototype.private_CheckBoundary = function(X, Y, Value)
-{
-    if (X > this.m_nW || X < 1 || Y > this.m_nH || Y < 1)
-        return;
-
-    if ((BOARD_DRAW - Value) === this.Get(X, Y))
-    {
-        if (Value === this.Get_ScorePoint(X, Y))
-            this.m_oBoundary.Is_PointIn(X, Y);
-
-        return;
-    }
-
-    if (true !== this.m_oArea.Is_PointIn(X, Y))
-    {
-        this.private_CheckBoundary(X + 1, Y, Value);
-        this.private_CheckBoundary(X - 1, Y, Value);
-        this.private_CheckBoundary(X, Y + 1, Value);
-        this.private_CheckBoundary(X, Y - 1, Value);
-    }
-};
-CLogicBoard.prototype.private_CheckEmptyAreaByXYAndValue = function(X, Y, Value)
-{
-    if (X > this.m_nW || X < 1 || Y > this.m_nH || Y < 1)
-        return;
-
-    if ((BOARD_DRAW - Value) === this.Get(X, Y))
-        return;
-    else if (Value === this.Get(X, Y))
-        this.m_oBoundary.Remove(X, Y);
-
-    if (true !== this.m_oArea.Is_PointIn(X, Y))
-    {
-        this.private_CheckEmptyAreaByXYAndValue(X + 1, Y, Value);
-        this.private_CheckEmptyAreaByXYAndValue(X - 1, Y, Value);
-        this.private_CheckEmptyAreaByXYAndValue(X, Y + 1, Value);
-        this.private_CheckEmptyAreaByXYAndValue(X, Y - 1, Value);
-    }
-};
 CLogicBoard.prototype.private_CheckAllEmptyAreas = function(bCheckDraw)
 {
     for (var Y = 1; Y <= this.m_nH; Y++)
@@ -505,39 +398,6 @@ CLogicBoard.prototype.private_CheckAllEmptyAreas = function(bCheckDraw)
             }
         }
     }
-};
-CLogicBoard.prototype.private_GetGroup = function(X, Y)
-{
-    var oGroup = new CLogicGroup();
-    this.private_GetGroupIteration(X, Y, oGroup);
-    return oGroup;
-};
-CLogicBoard.prototype.private_GetGroupIteration = function(X, Y, oGroup)
-{
-    if (X < 1 || X > this.m_nW || Y < 1 || Y > this.m_nH)
-        return;
-
-    if (false !== oGroup.Is_PointIn(X, Y, this.Get(X, Y)))
-        return;
-
-    this.private_GetGroupIteration(X + 1, Y, oGroup);
-    this.private_GetGroupIteration(X - 1, Y, oGroup);
-    this.private_GetGroupIteration(X, Y + 1, oGroup);
-    this.private_GetGroupIteration(X, Y - 1, oGroup);
-
-    // Также считаем, что камни в одной группе, если они соединены с помощью косуми
-
-    if (X > 1 && Y > 1 && BOARD_EMPTY === this.Get(X - 1, Y) && BOARD_EMPTY === this.Get(X, Y - 1))
-        this.private_GetGroupIteration(X - 1, Y - 1, oGroup);
-
-    if (X < this.m_nW && Y > 1 && BOARD_EMPTY === this.Get(X + 1, Y) && BOARD_EMPTY === this.Get(X, Y - 1))
-        this.private_GetGroupIteration(X + 1, Y - 1, oGroup);
-
-    if (X < this.m_nW && Y < this.m_nH && BOARD_EMPTY === this.Get(X + 1, Y) && BOARD_EMPTY === this.Get(X, Y + 1))
-        this.private_GetGroupIteration(X + 1, Y + 1, oGroup);
-
-    if (X > 1 && Y < this.m_nH && BOARD_EMPTY === this.Get(X - 1, Y) && BOARD_EMPTY === this.Get(X, Y + 1))
-        this.private_GetGroupIteration(X - 1, Y + 1, oGroup);
 };
 CLogicBoard.prototype.Mark_DeadGroupForEstimate = function(X, Y)
 {
