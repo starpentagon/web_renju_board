@@ -126,7 +126,6 @@ CSgfWriter.prototype.private_WriteGameInfo = function()
     this.private_WriteNonEmptyCommand("RO", oGameTree.Get_GameRound());
     this.private_WriteNonEmptyCommand("PC", oGameTree.Get_GamePlace());
     this.private_WriteNonEmptyCommand("AN", oGameTree.Get_GameAnnotator());
-    this.private_WriteNonEmptyCommand("ON", oGameTree.Get_GameFuseki());
     this.private_WriteNonEmptyCommand("SO", oGameTree.Get_GameSource());
     this.private_WriteNonEmptyCommand("US", oGameTree.Get_GameTranscriber());
 

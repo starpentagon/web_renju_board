@@ -808,7 +808,6 @@ CDrawingInfoWindow.prototype.Init = function(_sDivId, oPr)
 	var sRound        = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.round : "Round";
 	var sPlace        = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.place : "Place";
 	var sAnnotator    = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.annotator : "Annotator";
-	var sFuseki       = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.fuseki : "Fuseki";
 	var sSource       = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.source : "Source";
 	var sTranscriber  = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.transcriber : "Transcriber";
 	var sGameInfo     = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.gameInfo : "Game info";
@@ -832,7 +831,6 @@ CDrawingInfoWindow.prototype.Init = function(_sDivId, oPr)
 			window.g_oTextMeasurer.Measure(sRound),
 			window.g_oTextMeasurer.Measure(sPlace),
 			window.g_oTextMeasurer.Measure(sAnnotator),
-			window.g_oTextMeasurer.Measure(sFuseki),
 			window.g_oTextMeasurer.Measure(sSource),
 			window.g_oTextMeasurer.Measure(sTranscriber),
 			window.g_oTextMeasurer.Measure(sGameInfo)
@@ -894,8 +892,6 @@ CDrawingInfoWindow.prototype.Init = function(_sDivId, oPr)
 
     this.HtmlElement2.Annotator = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, sAnnotator, oGameTree.Get_GameAnnotator(), TopOffset, RowHeight, bCanEdit);
     TopOffset += RowHeight + LineSpacing;
-    this.HtmlElement2.Fuseki = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, sFuseki, oGameTree.Get_GameFuseki(), TopOffset, RowHeight, bCanEdit);
-    TopOffset += RowHeight + LineSpacing;
     this.HtmlElement2.Source = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, sSource, oGameTree.Get_GameSource(), TopOffset, RowHeight, bCanEdit);
     TopOffset += RowHeight + LineSpacing;
     this.HtmlElement2.Transcriber = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, sTranscriber, oGameTree.Get_GameTranscriber(), TopOffset, RowHeight, bCanEdit);
@@ -955,7 +951,6 @@ CDrawingInfoWindow.prototype.Handle_OK = function()
         this.m_oGameTree.Set_GameRound(this.HtmlElement2.Round.value);
         this.m_oGameTree.Set_GamePlace(this.HtmlElement2.Place.value);
         this.m_oGameTree.Set_GameAnnotator(this.HtmlElement2.Annotator.value);
-        this.m_oGameTree.Set_GameFuseki(this.HtmlElement2.Fuseki.value);
         this.m_oGameTree.Set_GameSource(this.HtmlElement2.Source.value);
         this.m_oGameTree.Set_GameTranscriber(this.HtmlElement2.Transcriber.value);
     }
@@ -1089,7 +1084,6 @@ CDrawingInfoWindow.prototype.Show = function(oPr)
     this.HtmlElement2.Place.value     = oGameTree.Get_GamePlace();
 
     this.HtmlElement2.Annotator.value   = oGameTree.Get_GameAnnotator();
-    this.HtmlElement2.Fuseki.value      = oGameTree.Get_GameFuseki();
     this.HtmlElement2.Source.value      = oGameTree.Get_GameSource();
     this.HtmlElement2.Transcriber.value = oGameTree.Get_GameTranscriber();
 

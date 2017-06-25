@@ -722,11 +722,6 @@ CSgfReader.prototype.private_ReadLB = function()
         this.m_nPos++;
     }
 };
-CSgfReader.prototype.private_ReadON = function()
-{
-    this.m_nPos += 3;
-    this.m_oGameTree.Set_GameFuseki(this.private_ReadSimpleText());
-};
 CSgfReader.prototype.private_ReadOT = function()
 {
     this.m_nPos += 3;

@@ -74,7 +74,6 @@ function CGameTree(Drawing)
     this.m_sGameEvent        = ""; // "EV"
     this.m_sGameName         = ""; // "GN"
     this.m_sGameInfo         = ""; // "GC"
-    this.m_sGameFuseki       = ""; // "ON"
     this.m_sOverTime         = ""; // "OT"
     this.m_sBlack            = "Black"; // "PB"
     this.m_sGamePlace        = ""; // "PC"
@@ -439,7 +438,6 @@ CGameTree.prototype.Reset = function()
     this.Set_GameRound("");
     this.Set_GamePlace("");
     this.Set_GameAnnotator("");
-    this.Set_GameFuseki("");
     this.Set_GameSource("");
     this.Set_GameTranscriber("");
 
@@ -1440,15 +1438,6 @@ CGameTree.prototype.Set_GameInfo = function(sGameInfo)
 CGameTree.prototype.Get_GameInfo = function()
 {
     return this.m_sGameInfo;
-};
-CGameTree.prototype.Set_GameFuseki = function(sFuseki)
-{
-    this.m_sGameFuseki = sFuseki;
-    this.Set_Modified(true);
-};
-CGameTree.prototype.Get_GameFuseki = function()
-{
-    return this.m_sGameFuseki;
 };
 CGameTree.prototype.Set_OverTime = function(sOverTime)
 {
