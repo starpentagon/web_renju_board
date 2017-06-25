@@ -489,7 +489,7 @@ CCommon.prototype.OpenFileDialog = function(oGameTree)
 
         oInput.type          = "file";
         oInput.multiple      = false;
-        oInput.accept        = ".sgf,.gib,.ngf";
+        oInput.accept        = ".sgf";
         oInput.style.display = "none";
 
         oInput.addEventListener("change", function (oEvent)

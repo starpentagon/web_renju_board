@@ -1973,7 +1973,7 @@ CDrawingAboutWindow.prototype.private_InitKeyBoardShortcutsPage = function(oDiv,
 
     this.private_AppendTableHeading1(oTBody,     "Working with Files");
 
-    this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 79, ShiftKey : false}, "Open Sgf/Gib/Ngf",                  "Ctrl+O",                                        "Open the Sgf/Gib/Ngf file from disk. (Not in color mode, see below)");
+    this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 79, ShiftKey : false}, "Open Sgf",                  "Ctrl+O",                                        "Open the Sgf file from disk. (Not in color mode, see below)");
     this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 79, ShiftKey : true }, "Open Sgf",                          "Ctrl+Shift+O",                                  "Open the Sgf file from source. (Not in color mode, see below)");
     this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 67, ShiftKey : false}, "Create new",                        "Ctrl+C",                                        "Create new empty board. (not in color mode see below)");
     this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 83, ShiftKey : false}, "Save Sgf",                          "Ctrl+S",                                        "Save Sgf file.");
