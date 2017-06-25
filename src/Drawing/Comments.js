@@ -100,17 +100,18 @@ function CDrawingPlayerInfo(oDrawing)
 
     this.HtmlElement =
     {
-        Control   : null,
+        Control         : null,
 
-        NameDiv   : null,
-        ScoresDiv : null,
-        Image     : null
+        NameDiv         : null,
+        PassCountDiv    : null,
+        Image           : null
     };
 
     this.m_oImage  = null;
     this.m_sName   = "";
     this.m_sRank   = "";
     this.m_bScores = false;
+    this.m_dPassCount = 0;
 }
 CDrawingPlayerInfo.prototype.Init = function(sDivId, oGameTree, nPlayer)
 {
@@ -122,21 +123,21 @@ CDrawingPlayerInfo.prototype.Init = function(sDivId, oGameTree, nPlayer)
     oDivElement.style.backgroundColor = new CColor(217, 217, 217, 255).ToString();
 
     this.HtmlElement.NameDiv   = document.createElement("div");
-    this.HtmlElement.ScoresDiv = document.createElement("div");
+    this.HtmlElement.PassCountDiv = document.createElement("div");
     this.HtmlElement.Image     = document.createElement("canvas");
 
     var oImage     = this.HtmlElement.Image;
     var oNameDiv   = this.HtmlElement.NameDiv;
-    var oScoresDiv = this.HtmlElement.ScoresDiv;
+    var oPassCountDiv = this.HtmlElement.PassCountDiv;
 
     oDivElement.appendChild(oImage);
     oDivElement.appendChild(oNameDiv);
-    oDivElement.appendChild(oScoresDiv);
+    oDivElement.appendChild(oPassCountDiv);
 
     oNameDiv.style.paddingLeft   = "25px";
-    oScoresDiv.style.paddingLeft = "25px";
+    oPassCountDiv.style.paddingLeft = "25px";
     oNameDiv.style.fontSize      = "14pt";
-    oScoresDiv.style.fontSize    = "10pt";
+    oPassCountDiv.style.fontSize    = "10pt";
 
     oImage.setAttribute("id", sDivId + "_Image");
     oImage.setAttribute("style", "position:absolute;padding:0;margin:0;");
@@ -198,7 +199,7 @@ CDrawingPlayerInfo.prototype.Update_Size = function()
     this.HtmlElement.Image.style.left            = nOffset + "px";
     nOffset += 25;
     this.HtmlElement.NameDiv.style.paddingLeft   = nOffset + "px";
-    this.HtmlElement.ScoresDiv.style.paddingLeft = nOffset + "px";
+    this.HtmlElement.PassCountDiv.style.paddingLeft = nOffset + "px";
 
     this.HtmlElement.NameDiv.style.overflow            = "hidden";
     this.HtmlElement.NameDiv.style.textOverflow        = "ellipsis";
@@ -207,12 +208,12 @@ CDrawingPlayerInfo.prototype.Update_Size = function()
     this.HtmlElement.NameDiv.style.lineHeight          = 25 + "px";
     this.HtmlElement.NameDiv.style.fontFamily          = '"Times New Roman", Times, serif';
 
-    this.HtmlElement.ScoresDiv.style.overflow            = "hidden";
-    this.HtmlElement.ScoresDiv.style.textOverflow        = "ellipsis";
-    this.HtmlElement.ScoresDiv.style['-o-text-overflow'] = "ellipsis";
-    this.HtmlElement.ScoresDiv.style.height              = 25 + "px";
-    this.HtmlElement.ScoresDiv.style.lineHeight          = 25 + "px";
-    this.HtmlElement.ScoresDiv.style.fontFamily          = '"Times New Roman", Times, serif';
+    this.HtmlElement.PassCountDiv.style.overflow            = "hidden";
+    this.HtmlElement.PassCountDiv.style.textOverflow        = "ellipsis";
+    this.HtmlElement.PassCountDiv.style['-o-text-overflow'] = "ellipsis";
+    this.HtmlElement.PassCountDiv.style.height              = 25 + "px";
+    this.HtmlElement.PassCountDiv.style.lineHeight          = 25 + "px";
+    this.HtmlElement.PassCountDiv.style.fontFamily          = '"Times New Roman", Times, serif';
 };
 CDrawingPlayerInfo.prototype.Update_Name = function(sName)
 {
@@ -230,16 +231,22 @@ CDrawingPlayerInfo.prototype.Update_Captured = function(dCaptured)
     this.m_dScores = dCaptured;
     this.private_Update();
 };
+CDrawingPlayerInfo.prototype.Update_PassCount = function(dPassCount)
+{
+    this.m_dPassCount = dPassCount;
+    this.private_Update();
+};
 CDrawingPlayerInfo.prototype.private_Update = function()
 {
     var oNameDiv   = this.HtmlElement.NameDiv;
-    var oScoresDiv = this.HtmlElement.ScoresDiv;
+    var oPassCountDiv = this.HtmlElement.PassCountDiv;
 
     var sNameText   = ("" === this.m_sName ? (BOARD_BLACK === this.m_nPlayer ? "Black " : "White ") : this.m_sName) + ("" === this.m_sRank ? "" : "[" + this.m_sRank +  "]");
     var sScoresText = (true === this.m_bScores ? "Scores " : "Captured ") + this.m_dScores;
+    var sPassCountText = "Pass " + this.m_dPassCount;
 
     Common.Set_InnerTextToElement(oNameDiv, sNameText);
-    Common.Set_InnerTextToElement(oScoresDiv, sScoresText);
+    Common.Set_InnerTextToElement(oPassCountDiv, sPassCountText);
 
     var Canvas = document.createElement("canvas").getContext("2d");
     Canvas.font = "14pt Times New Roman";

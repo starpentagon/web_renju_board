@@ -609,7 +609,6 @@ function CDrawing(oGameTree)
         Pass            : null,
 
         BoardModeMove   : [],
-        BoardModeScores : [],
         BoardModeEditor : [],
         BoardModeTr     : [],
         BoardModeSq     : [],
@@ -1692,10 +1691,6 @@ CDrawing.prototype.Register_PrevVariantButton = function(oButton)
 CDrawing.prototype.Register_EditModeMoveButton = function(oButton)
 {
     this.m_oButtons.BoardModeMove.push(oButton);
-};
-CDrawing.prototype.Register_EditModeScoresButton = function(oButton)
-{
-    this.m_oButtons.BoardModeScores.push(oButton);
 };
 CDrawing.prototype.Register_EditModeAddRemButton = function(oButton)
 {

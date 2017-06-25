@@ -3118,7 +3118,6 @@ var EWindowType =
     Error         : 2,
     GameInfo      : 3,
     Settings      : 4,
-    ScoreEstimate : 5,
     CountColors   : 6,
     GifWriter     : 7,
     About         : 8,
@@ -3150,7 +3149,6 @@ function CreateWindow(sDrawingId, nWindowType, oPr)
         case EWindowType.GameInfo      : sApp = "Info"; break;
         case EWindowType.Settings      : sApp = "Settings"; break;
         case EWindowType.Error         : sApp = "Error"; break;
-        case EWindowType.ScoreEstimate : sApp = "ScoreEstimate"; break;
         case EWindowType.CountColors   : sApp = "CountColors"; break;
         case EWindowType.GifWriter     : sApp = "GifWriter"; break;
         case EWindowType.About         : sApp = "About"; break;
