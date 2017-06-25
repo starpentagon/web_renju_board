@@ -2415,7 +2415,6 @@ CDrawingButtonFileMenu.prototype.InitDefaultMenu = function(bNoLoadFields)
 	var sSnapshot          = window.g_oLocalization ? window.g_oLocalization.gameRoom.menu.createSnapshot : "Create snapshot";
 	var sExportGIF         = window.g_oLocalization ? window.g_oLocalization.gameRoom.menu.exportToGif : "Export to GIF";
 	var sConvertToASCII    = window.g_oLocalization ? window.g_oLocalization.gameRoom.menu.convertToASCIIDiagram : "Convert to ASCII diagram";
-	var sScoreEstimator    = window.g_oLocalization ? window.g_oLocalization.gameRoom.menu.scoreEstimator : "Score estimator";
 	var sToggleCoordinates = window.g_oLocalization ? window.g_oLocalization.gameRoom.menu.toggleCoordinates : "Toggle coordinates";
     var sGameInfo          = window.g_oLocalization ? window.g_oLocalization.gameRoom.menu.gameInfo : "Game info";
     var sCropBoard         = window.g_oLocalization ? window.g_oLocalization.gameRoom.menu.cropBoard : "Crop the board";
@@ -2476,10 +2475,6 @@ CDrawingButtonFileMenu.prototype.InitDefaultMenu = function(bNoLoadFields)
     this.private_CreateMenuItem(oMenuElementWrapper, sConvertToASCII, function()
     {
         CreateWindow(oMainDiv.id, EWindowType.DiagramSL, {GameTree : oGameTree, Drawing : oThis.m_oDrawing});
-    });
-    this.private_CreateMenuItem(oMenuElementWrapper, sScoreEstimator, function()
-    {
-        CreateWindow(oMainDiv.id, EWindowType.ScoreEstimate, {GameTree : oGameTree, Drawing : oThis.m_oDrawing});
     });
 	this.private_CreateMenuItem(oMenuElementWrapper, sToggleCoordinates, function()
 	{

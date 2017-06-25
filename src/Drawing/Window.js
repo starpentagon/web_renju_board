@@ -2005,11 +2005,6 @@ CDrawingAboutWindow.prototype.private_InitKeyBoardShortcutsPage = function(oDiv,
     this.private_AppendTableCommonString(oTBody, {},                                                "Change move order",                 "Ctrl+Shift+Left mouse click",                   "When sequentially stones are entered: changes the colour of the next stone to be set. What stone will appear on the board is shown by the tools field (useful e.g. after a problem has been set up).");
     this.private_AppendTableCommonString(oTBody, {},                                                "Add comment with coordinates",      "Ctrl+Left mouse click",                         "Add comment with coordinates.");
 
-    this.private_AppendTableHeading2(oTBody, {CtrlKey : false, KeyCode : 113, ShiftKey : false},    "Count scores", "F2");
-
-    this.private_AppendTableCommonString(oTBody, {},                                                "Mark dead groups",                  "Left mouse click",                              "Mark dead groups.");
-    this.private_AppendTableCommonString(oTBody, {},                                                "End count scores",                  "Ctrl+Left mouse click onto board",              "Return to play mode.");
-
     this.private_AppendTableHeading2(oTBody, {CtrlKey : false, KeyCode : 114, ShiftKey : false},    "Set up a board position", "F3");
 
     this.private_AppendTableCommonString(oTBody, {},                                                "Add black stone or remove stone",   "Left mouse click",                              "Add black stone or remove stone.");
@@ -2037,7 +2032,6 @@ CDrawingAboutWindow.prototype.private_InitKeyBoardShortcutsPage = function(oDiv,
     this.private_AppendTableCommonString(oTBody, {CtrlKey : true, KeyCode : 82, ShiftKey : false},  "Clear colors",                      "Ctrl+R",                                       "Clear all colors in the current node.");
     this.private_AppendTableHeading1(oTBody, "Miscellaneous");
     this.private_AppendTableCommonString(oTBody, {CtrlKey : false, KeyCode :  8, ShiftKey : false}, "Remove node",                       "Backspace/Delete",                             "Deletes the current node and all of the following brunches.");
-    this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 69, ShiftKey : false}, "Score estimator",                   "Ctrl+E",                                       "Show window with score estimator (you can mark dead groups by click on them).");
     this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 86, ShiftKey : false}, "View mode change of the next move", "Ctrl+V",                                       "There are 3 mods: Show all next move variants, show all alternative variants of the current move, show nothing.");
     this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 82, ShiftKey : false}, "Show/Hide coordinates",             "Ctrl+R",                                       "Show/Hide coordinates. (Not in color mode, see above)");
     this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 77, ShiftKey : true }, "Make the current variant mainly",   "Ctrl+Shift+M",                                 "Make the current variant mainly by uplifting it to the root of the game tree.");

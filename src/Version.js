@@ -1,4 +1,16 @@
 /**
+ * Copyright (C) 2017, Koichi Nabetani <admin@starpentagon.net>,
+   Web Renju board is developed by modifying the GoProject libraries.
+   
+   This file contains Original Code and/or Modifications of Original Code 
+   distributed in the HtmlGoBoard project: https://github.com/IlyaKirillov/GoProject.
+
+  Original source codes are:
+   Copyright 2014 the HtmlGoBoard project authors.
+   Originally under LGPL v3.0 in https://github.com/IlyaKirillov/GoProject.
+*/
+
+/**
  * Copyright 2015 the HtmlGoBoard project authors.
  * All rights reserved.
  * Project  WebSDK
@@ -7,4 +19,4 @@
  * Time     3:08
  */
 
-CGoBoardApi.prototype.Version = "0.10.8";
+CGoBoardApi.prototype.Version = "1.0.0";
