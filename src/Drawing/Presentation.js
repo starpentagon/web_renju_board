@@ -226,7 +226,6 @@ CPresentation.prototype.Update_BlackName = function(){};
 CPresentation.prototype.Update_WhiteName = function(){};
 CPresentation.prototype.Update_BlackRank = function(){};
 CPresentation.prototype.Update_WhiteRank = function(){};
-CPresentation.prototype.Update_Scores    = function(){};
 CPresentation.prototype.Update_Captured  = function(){};
 CPresentation.prototype.On_StopAutoPlay  = function(){};
 CPresentation.prototype.On_StartAutoPlay = function(){};

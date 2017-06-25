@@ -1856,14 +1856,6 @@ CDrawing.prototype.Update_Captured = function(dBlack, dWhite)
     if (this.m_oWhiteInfo)
         this.m_oWhiteInfo.Update_Captured(dWhite);
 };
-CDrawing.prototype.Update_Scores = function(dBlack, dWhite)
-{
-    if (this.m_oBlackInfo)
-        this.m_oBlackInfo.Update_Scores(dBlack);
-
-    if (this.m_oWhiteInfo)
-        this.m_oWhiteInfo.Update_Scores(dWhite);
-};
 CDrawing.prototype.Update_InterfaceState = function(oIState)
 {
     // Backward

@@ -110,7 +110,6 @@ function CDrawingPlayerInfo(oDrawing)
     this.m_oImage  = null;
     this.m_sName   = "";
     this.m_sRank   = "";
-    this.m_dScores = 0;
     this.m_bScores = false;
 }
 CDrawingPlayerInfo.prototype.Init = function(sDivId, oGameTree, nPlayer)
@@ -229,12 +228,6 @@ CDrawingPlayerInfo.prototype.Update_Captured = function(dCaptured)
 {
     this.m_bScores = false;
     this.m_dScores = dCaptured;
-    this.private_Update();
-};
-CDrawingPlayerInfo.prototype.Update_Scores = function(dScores)
-{
-    this.m_bScores = true;
-    this.m_dScores = dScores;
     this.private_Update();
 };
 CDrawingPlayerInfo.prototype.private_Update = function()

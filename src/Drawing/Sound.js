@@ -24,10 +24,6 @@
 function CBoardSound()
 {
     this.PlaceStone = null;
-    this.Capture1   = null;
-    this.Capture3   = null;
-    this.Capture5   = null;
-    this.CaptureN   = null;
 
     this.NewMessage = null;
 
