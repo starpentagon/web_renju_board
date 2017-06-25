@@ -106,7 +106,6 @@ CSgfWriter.prototype.private_WriteGameInfo = function()
     this.private_WriteNonEmptyCommand("RU", oGameTree.Get_Rules());
 
     this.private_WriteCommand("SZ", oBoardSize.X == oBoardSize.Y ? oBoardSize.X : oBoardSize.X + ":" + oBoardSize.Y);
-    this.private_WriteCommand("HA", oGameTree.Get_Handicap());
     this.private_WriteNonEmptyCommand("TM", oGameTree.Get_TimeLimit());
     this.private_WriteNonEmptyCommand("OT", oGameTree.Get_OverTime());
     this.private_WriteNonEmptyCommand("RE", oGameTree.Get_Result());

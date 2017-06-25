@@ -686,11 +686,6 @@ CSgfReader.prototype.private_ReadGM = function()
     if (1 !== Number)
         this.m_bValidNode = false;
 };
-CSgfReader.prototype.private_ReadHA = function()
-{
-    this.m_nPos += 3;
-    this.m_oGameTree.Set_Handicap(this.private_ReadNumber());
-};
 CSgfReader.prototype.private_ReadLB = function()
 {
     this.m_nPos += 3;

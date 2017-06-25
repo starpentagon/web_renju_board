@@ -797,7 +797,6 @@ CDrawingInfoWindow.prototype.Init = function(_sDivId, oPr)
 	var sGameName     = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.gameName : "Game name";
 	var sResult       = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.result : "Result";
 	var sRules        = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.rules : "Rules";
-	var sHandicap     = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.handicap : "Handicap";
 	var sTimeSettings = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.timeSettings : "Time settings";
 	var sBlack        = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.black : "Black";
 	var sBlackRank    = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.blackRank : "Black rank";
@@ -822,7 +821,6 @@ CDrawingInfoWindow.prototype.Init = function(_sDivId, oPr)
 			window.g_oTextMeasurer.Measure(sGameName),
 			window.g_oTextMeasurer.Measure(sResult),
 			window.g_oTextMeasurer.Measure(sRules),
-			window.g_oTextMeasurer.Measure(sHandicap),
 			window.g_oTextMeasurer.Measure(sTimeSettings),
 			window.g_oTextMeasurer.Measure(sBlack),
 			window.g_oTextMeasurer.Measure(sBlackRank),
@@ -870,8 +868,6 @@ CDrawingInfoWindow.prototype.Init = function(_sDivId, oPr)
     this.HtmlElement2.Result = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, sResult, oGameTree.Get_Result(), TopOffset, RowHeight, bCanEdit);
     TopOffset += RowHeight + LineSpacing;
     this.HtmlElement2.Rules = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, sRules, oGameTree.Get_Rules(), TopOffset, RowHeight, bCanEdit);
-    TopOffset += RowHeight + LineSpacing;
-    this.HtmlElement2.Handicap = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, sHandicap, oGameTree.Get_Handicap(), TopOffset, RowHeight, bCanEdit);
     TopOffset += RowHeight + LineSpacing;
     this.HtmlElement2.TimeSettings = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, sTimeSettings, oGameTree.Get_TimeLimit() + (oGameTree.Get_OverTime() === "" ? "" : " + " + oGameTree.Get_OverTime()), TopOffset, RowHeight, bCanEdit);
     TopOffset += RowHeight + LineSpacing;
@@ -944,7 +940,6 @@ CDrawingInfoWindow.prototype.Handle_OK = function()
         this.m_oGameTree.Set_GameName(this.HtmlElement2.GameName.value);
         this.m_oGameTree.Set_Result(this.HtmlElement2.Result.value);
         this.m_oGameTree.Set_Rules(this.HtmlElement2.Rules.value);
-        this.m_oGameTree.Set_Handicap(this.HtmlElement2.Handicap.value);
 
         // TODO: разбить на TimeLimit и Overtime
         this.m_oGameTree.Set_TimeLimit(this.HtmlElement2.TimeSettings.value);
@@ -1080,7 +1075,6 @@ CDrawingInfoWindow.prototype.Show = function(oPr)
     this.HtmlElement2.GameName.value     = oGameTree.Get_GameName();
     this.HtmlElement2.Result.value       = oGameTree.Get_Result();
     this.HtmlElement2.Rules.value        = oGameTree.Get_Rules();
-    this.HtmlElement2.Handicap.value     = oGameTree.Get_Handicap();
     this.HtmlElement2.TimeSettings.value = oGameTree.Get_TimeLimit() + (oGameTree.Get_OverTime() === "" ? "" : " + " + oGameTree.Get_OverTime());
 
     this.HtmlElement2.BlackName.value = oGameTree.Get_BlackName();
@@ -2605,8 +2599,6 @@ CDrawingCreateNewWindow.prototype.Init = function(_sDivId, oPr)
     TopOffset += 2 * (RowHeight + LineSpacing);
     this.BoardSize = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, "Board size", "15", TopOffset, RowHeight);
     TopOffset += 2 * (RowHeight + LineSpacing);
-    this.Handicap = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, "Handicap", "0", TopOffset, RowHeight);
-    TopOffset += 2 * (RowHeight + LineSpacing);
 };
 CDrawingCreateNewWindow.prototype.private_CreateDivElement = function(oParentElement, sName, Height)
 {
@@ -2691,140 +2683,12 @@ CDrawingCreateNewWindow.prototype.Handle_OK = function()
         return;
     }
 
-    var nHandi = parseInt(this.Handicap.value);
-    if (isNaN(nHandi) || nHandi < 0 || nHandi > 9)
-    {
-        CreateWindow(this.m_oDrawing.Get_MainDiv().id, EWindowType.Error, {GameTree : this.m_oGameTree, Drawing : this.m_oDrawing, ErrorText : "Handicap value must be an integer number from 0 to 9.", W : 300, H : 95});
-        return;
-    }
-
-    if (0 != nHandi && (nSizeY <= 6 || nSizeX <= 6 || nSizeX !== nSizeY))
-    {
-        CreateWindow(this.m_oDrawing.Get_MainDiv().id, EWindowType.Error, {GameTree : this.m_oGameTree, Drawing : this.m_oDrawing, ErrorText : "Handicap value must be 0 for this board size.", W : 300, H : 95});
-        return;
-    }
-
-    if (nHandi > 5 && (nSizeX <= 10 || nSizeY <= 10))
-    {
-        CreateWindow(this.m_oDrawing.Get_MainDiv().id, EWindowType.Error, {GameTree : this.m_oGameTree, Drawing : this.m_oDrawing, ErrorText : "Handicap value must be an integer number from 0 to 5 for this board size.", W : 300, H : 95});
-        return;
-    }
-
     if (this.m_oGameTree)
     {
         var sSGF = "(;FF[4]";
         sSGF += "SZ[" + (nSizeX === nSizeY ? nSizeX : nSizeX + ":" + nSizeY) + "]";
         sSGF += "PB[" + this.BlackPlayer.value + "]";
         sSGF += "PW[" + this.WhitePlayer.value + "]";
-        sSGF += "HA[" + nHandi + "]";
-
-        var aHandiPoints = [];
-
-        if (nSizeX === nSizeY)
-        {
-            var nSize = nSizeX;
-            var nVal0 = (nSize < 10 ? 2 : 3);
-            var nVal1 = ((nSize + 1) / 2 | 0) - 1;
-            var nVal2 = (nSize < 10 ? nSize - 3 : nSize - 4);
-
-            switch (nHandi)
-            {
-            case 2:
-            {
-                aHandiPoints.push([nVal2, nVal0]);
-                aHandiPoints.push([nVal0, nVal2]);
-                break;
-            }
-            case 3:
-            {
-                aHandiPoints.push([nVal2, nVal2]);
-                aHandiPoints.push([nVal0, nVal2]);
-                aHandiPoints.push([nVal2, nVal0]);
-                break;
-            }
-            case 4:
-            {
-                aHandiPoints.push([nVal0, nVal0]);
-                aHandiPoints.push([nVal2, nVal2]);
-                aHandiPoints.push([nVal0, nVal2]);
-                aHandiPoints.push([nVal2, nVal0]);
-                break;
-            }
-            case 5:
-            {
-                aHandiPoints.push([nVal0, nVal0]);
-                aHandiPoints.push([nVal0, nVal2]);
-                aHandiPoints.push([nVal2, nVal0]);
-                aHandiPoints.push([nVal2, nVal2]);
-                aHandiPoints.push([nVal1, nVal1]);
-                break;
-            }
-            case 6:
-            {
-                aHandiPoints.push([nVal0, nVal0]);
-                aHandiPoints.push([nVal0, nVal2]);
-                aHandiPoints.push([nVal2, nVal0]);
-                aHandiPoints.push([nVal2, nVal2]);
-                aHandiPoints.push([nVal0, nVal1]);
-                aHandiPoints.push([nVal2, nVal1]);
-                break;
-            }
-            case 7:
-            {
-                aHandiPoints.push([nVal0, nVal0]);
-                aHandiPoints.push([nVal0, nVal2]);
-                aHandiPoints.push([nVal2, nVal0]);
-                aHandiPoints.push([nVal2, nVal2]);
-                aHandiPoints.push([nVal0, nVal1]);
-                aHandiPoints.push([nVal2, nVal1]);
-                aHandiPoints.push([nVal1, nVal1]);
-                break;
-            }
-            case 8:
-            {
-                aHandiPoints.push([nVal0, nVal0]);
-                aHandiPoints.push([nVal0, nVal2]);
-                aHandiPoints.push([nVal2, nVal0]);
-                aHandiPoints.push([nVal2, nVal2]);
-                aHandiPoints.push([nVal0, nVal1]);
-                aHandiPoints.push([nVal2, nVal1]);
-                aHandiPoints.push([nVal1, nVal0]);
-                aHandiPoints.push([nVal1, nVal2]);
-                break;
-            }
-            case 9:
-            {
-                aHandiPoints.push([nVal0, nVal0]);
-                aHandiPoints.push([nVal0, nVal2]);
-                aHandiPoints.push([nVal2, nVal0]);
-                aHandiPoints.push([nVal2, nVal2]);
-                aHandiPoints.push([nVal0, nVal1]);
-                aHandiPoints.push([nVal2, nVal1]);
-                aHandiPoints.push([nVal1, nVal0]);
-                aHandiPoints.push([nVal1, nVal2]);
-                aHandiPoints.push([nVal1, nVal1]);
-                break;
-            }
-            }
-        }
-
-        var nCharCodeOffsetLo = 'a'.charCodeAt(0);
-        var nCharCodeOffsetHi = 'A'.charCodeAt(0);
-
-        if (aHandiPoints.length > 0)
-        {
-            sSGF += "AB";
-            for (var nIndex = 0, nCount = aHandiPoints.length; nIndex < nCount; nIndex++)
-            {
-                var nX = aHandiPoints[nIndex][0];
-                var nY = aHandiPoints[nIndex][1];
-
-                nX += (nX <= 25 ? nCharCodeOffsetLo : nCharCodeOffsetHi - 26);
-                nY += (nY <= 25 ? nCharCodeOffsetLo : nCharCodeOffsetHi - 26);
-
-                sSGF += String.fromCharCode(91, nX, nY, 93);
-            }
-        }
 
         sSGF += ")";
         this.m_oGameTree.Load_Sgf(sSGF, null, null, "sgf");

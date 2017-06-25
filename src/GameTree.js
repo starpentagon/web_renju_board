@@ -57,8 +57,6 @@ function CGameTree(Drawing)
 
     this.m_nNextMove         = BOARD_BLACK;
 
-    this.m_nHandicap         = 0;
-
     this.m_nBlackScores      = 0;
     this.m_nWhiteScores      = 0;
 
@@ -428,7 +426,6 @@ CGameTree.prototype.Reset = function()
     this.Set_GameName("");
     this.Set_Result("");
     this.Set_Rules("");
-    this.Set_Handicap("0");
     this.Set_TimeLimit("");
     this.Set_OverTime("");
     this.Set_Black("Black");
@@ -1327,15 +1324,6 @@ CGameTree.prototype.Get_WhiteScores = function()
 CGameTree.prototype.Get_CurNodeDepth = function()
 {
     return this.m_nCurNodeDepth;
-};
-CGameTree.prototype.Get_Handicap = function()
-{
-    return this.m_nHandicap;
-};
-CGameTree.prototype.Set_Handicap = function(nHandicap)
-{
-    this.m_nHandicap = nHandicap;
-    this.Set_Modified(true);
 };
 CGameTree.prototype.Set_Application = function(sApp)
 {
