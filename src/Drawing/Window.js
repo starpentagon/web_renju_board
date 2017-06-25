@@ -797,7 +797,6 @@ CDrawingInfoWindow.prototype.Init = function(_sDivId, oPr)
 	var sGameName     = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.gameName : "Game name";
 	var sResult       = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.result : "Result";
 	var sRules        = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.rules : "Rules";
-	var sKomi         = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.komi : "Komi";
 	var sHandicap     = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.handicap : "Handicap";
 	var sTimeSettings = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.timeSettings : "Time settings";
 	var sBlack        = window.g_oLocalization ? window.g_oLocalization.gameRoom.window.gameInfo.black : "Black";
@@ -823,7 +822,6 @@ CDrawingInfoWindow.prototype.Init = function(_sDivId, oPr)
 			window.g_oTextMeasurer.Measure(sGameName),
 			window.g_oTextMeasurer.Measure(sResult),
 			window.g_oTextMeasurer.Measure(sRules),
-			window.g_oTextMeasurer.Measure(sKomi),
 			window.g_oTextMeasurer.Measure(sHandicap),
 			window.g_oTextMeasurer.Measure(sTimeSettings),
 			window.g_oTextMeasurer.Measure(sBlack),
@@ -872,8 +870,6 @@ CDrawingInfoWindow.prototype.Init = function(_sDivId, oPr)
     this.HtmlElement2.Result = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, sResult, oGameTree.Get_Result(), TopOffset, RowHeight, bCanEdit);
     TopOffset += RowHeight + LineSpacing;
     this.HtmlElement2.Rules = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, sRules, oGameTree.Get_Rules(), TopOffset, RowHeight, bCanEdit);
-    TopOffset += RowHeight + LineSpacing;
-    this.HtmlElement2.Komi = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, sKomi, oGameTree.Get_Komi(), TopOffset, RowHeight, bCanEdit);
     TopOffset += RowHeight + LineSpacing;
     this.HtmlElement2.Handicap = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, sHandicap, oGameTree.Get_Handicap(), TopOffset, RowHeight, bCanEdit);
     TopOffset += RowHeight + LineSpacing;
@@ -948,7 +944,6 @@ CDrawingInfoWindow.prototype.Handle_OK = function()
         this.m_oGameTree.Set_GameName(this.HtmlElement2.GameName.value);
         this.m_oGameTree.Set_Result(this.HtmlElement2.Result.value);
         this.m_oGameTree.Set_Rules(this.HtmlElement2.Rules.value);
-        this.m_oGameTree.Set_Komi(parseFloat(this.HtmlElement2.Komi.value));
         this.m_oGameTree.Set_Handicap(this.HtmlElement2.Handicap.value);
 
         // TODO: разбить на TimeLimit и Overtime
@@ -1085,7 +1080,6 @@ CDrawingInfoWindow.prototype.Show = function(oPr)
     this.HtmlElement2.GameName.value     = oGameTree.Get_GameName();
     this.HtmlElement2.Result.value       = oGameTree.Get_Result();
     this.HtmlElement2.Rules.value        = oGameTree.Get_Rules();
-    this.HtmlElement2.Komi.value         = oGameTree.Get_Komi();
     this.HtmlElement2.Handicap.value     = oGameTree.Get_Handicap();
     this.HtmlElement2.TimeSettings.value = oGameTree.Get_TimeLimit() + (oGameTree.Get_OverTime() === "" ? "" : " + " + oGameTree.Get_OverTime());
 
@@ -2609,11 +2603,10 @@ CDrawingCreateNewWindow.prototype.Init = function(_sDivId, oPr)
     TopOffset += 2 * (RowHeight + LineSpacing);
     this.WhitePlayer = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, "White", "White", TopOffset, RowHeight);
     TopOffset += 2 * (RowHeight + LineSpacing);
-    this.BoardSize = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, "Board size", "19", TopOffset, RowHeight);
+    this.BoardSize = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, "Board size", "15", TopOffset, RowHeight);
     TopOffset += 2 * (RowHeight + LineSpacing);
     this.Handicap = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, "Handicap", "0", TopOffset, RowHeight);
     TopOffset += 2 * (RowHeight + LineSpacing);
-    this.Komi = this.private_CreateInfoElement(oMainDiv, oMainControl, sDivId, "Komi", "6.5", TopOffset, RowHeight);
 };
 CDrawingCreateNewWindow.prototype.private_CreateDivElement = function(oParentElement, sName, Height)
 {
@@ -2717,18 +2710,10 @@ CDrawingCreateNewWindow.prototype.Handle_OK = function()
         return;
     }
 
-    var fKomi = parseFloat(this.Komi.value);
-    if (isNaN(fKomi) || Math.abs((2 * fKomi) - (2 * fKomi | 0)) > 0.001)
-    {
-        CreateWindow(this.m_oDrawing.Get_MainDiv().id, EWindowType.Error, {GameTree : this.m_oGameTree, Drawing : this.m_oDrawing, ErrorText : "Invalid komi value.", W : 175, H : 85});
-        return;
-    }
-
     if (this.m_oGameTree)
     {
         var sSGF = "(;FF[4]";
         sSGF += "SZ[" + (nSizeX === nSizeY ? nSizeX : nSizeX + ":" + nSizeY) + "]";
-        sSGF += "KM[" + fKomi + "]";
         sSGF += "PB[" + this.BlackPlayer.value + "]";
         sSGF += "PW[" + this.WhitePlayer.value + "]";
         sSGF += "HA[" + nHandi + "]";

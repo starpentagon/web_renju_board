@@ -1,6 +1,15 @@
 "use strict";
 
 /**
+ * Copyright (C) 2017, Koichi Nabetani <admin@starpentagon.net>,
+   except where otherwise indicated.
+
+  Original source codes are:
+   Copyright 2014 the HtmlGoBoard project authors.
+   Originally under LGPL v3.0 in https://github.com/IlyaKirillov/GoProject.
+*/
+
+/**
  * Copyright 2015 the HtmlGoBoard project authors.
  * All rights reserved.
  * Project  WebSDK
@@ -97,7 +106,6 @@ CSgfWriter.prototype.private_WriteGameInfo = function()
     this.private_WriteNonEmptyCommand("RU", oGameTree.Get_Rules());
 
     this.private_WriteCommand("SZ", oBoardSize.X == oBoardSize.Y ? oBoardSize.X : oBoardSize.X + ":" + oBoardSize.Y);
-    this.private_WriteCommand("KM", oGameTree.Get_Komi());
     this.private_WriteCommand("HA", oGameTree.Get_Handicap());
     this.private_WriteNonEmptyCommand("TM", oGameTree.Get_TimeLimit());
     this.private_WriteNonEmptyCommand("OT", oGameTree.Get_OverTime());

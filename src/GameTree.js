@@ -57,7 +57,6 @@ function CGameTree(Drawing)
 
     this.m_nNextMove         = BOARD_BLACK;
 
-    this.m_nKomi             = 0;
     this.m_nHandicap         = 0;
 
     this.m_nBlackScores      = 0;
@@ -128,7 +127,6 @@ CGameTree.prototype.Copy_ForScoreEstimate = function()
     oGameTree.m_oBoard = this.m_oBoard.Copy();
     oGameTree.m_oFirstNode = this.m_oFirstNode.Copy_CurrentVariant(this.m_oCurNode);
     oGameTree.m_oCurNode   = oGameTree.m_oFirstNode;
-    oGameTree.m_nKomi      = this.m_nKomi;
     oGameTree.Step_ForwardToEnd();
     return oGameTree;
 };
@@ -355,14 +353,7 @@ CGameTree.prototype.Load_Sgf = function(sFile, oViewPort, sMoveReference, sExt)
     this.Reset_EditingFlags();
 
     // Сначала определим тип файла
-    var oReader = null;
-    if ("gib" === sExt)
-        oReader = new CGibReader(this);
-    else if ("ngf" === sExt)
-        oReader = new CNgfReader(this);
-    else
-        oReader = new CSgfReader(this);
-
+    var oReader = new CSgfReader(this);
     oReader.Load(sFile);
 
     if (this.m_bTutorModeAuto)
@@ -437,7 +428,6 @@ CGameTree.prototype.Reset = function()
     this.Set_GameName("");
     this.Set_Result("");
     this.Set_Rules("");
-    this.Set_Komi(0);
     this.Set_Handicap("0");
     this.Set_TimeLimit("");
     this.Set_OverTime("");
@@ -1337,15 +1327,6 @@ CGameTree.prototype.Get_WhiteScores = function()
 CGameTree.prototype.Get_CurNodeDepth = function()
 {
     return this.m_nCurNodeDepth;
-};
-CGameTree.prototype.Get_Komi = function()
-{
-    return this.m_nKomi;
-};
-CGameTree.prototype.Set_Komi = function(nKomi)
-{
-    this.m_nKomi = nKomi;
-    this.Set_Modified(true);
 };
 CGameTree.prototype.Get_Handicap = function()
 {
