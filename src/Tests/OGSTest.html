@@ -60,13 +60,13 @@
             oGameTree.Focus();
     }
 
-    var oGameTree = GoBoardApi.Create_GameTree();
-    GoBoardApi.Set_Sound(oGameTree, "../../Resources/Sound");
-    GoBoardApi.Create_EditorHor(oGameTree, "divId");
+    var oGameTree = RenjuBoardApi.Create_GameTree();
+    RenjuBoardApi.Set_Sound(oGameTree, "../../Resources/Sound");
+    RenjuBoardApi.Create_EditorHor(oGameTree, "divId");
 
-    document.getElementById("divId").style.height = GoBoardApi.Get_DivHeightByWidth(oGameTree, parseInt(document.getElementById("divId").style.width)) + "px";
+    document.getElementById("divId").style.height = RenjuBoardApi.Get_DivHeightByWidth(oGameTree, parseInt(document.getElementById("divId").style.width)) + "px";
 
-    GoBoardApi.Update_Size(oGameTree);
+    RenjuBoardApi.Update_Size(oGameTree);
 
 </script>
 

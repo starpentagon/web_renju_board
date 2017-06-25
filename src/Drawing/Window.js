@@ -1874,7 +1874,7 @@ CDrawingAboutWindow.prototype.private_InitAboutPage = function(oDiv)
 
     var oVersion = document.createElement("div");
     oDivMainPart.appendChild(oVersion);
-    Common.Set_InnerTextToElement(oVersion, "Version " + GoBoardApi.Get_Version());
+    Common.Set_InnerTextToElement(oVersion, "Version " + RenjuBoardApi.Get_Version());
 
     var oString              = document.createElement("div");
     oString.style.paddingTop = "40px";
@@ -3158,7 +3158,7 @@ function CreateWindow(sDrawingId, nWindowType, oPr)
         case EWindowType.Clipboard     : sApp = "Clipboard"; break;
         case EWindowType.Kifu          : sApp = "Kifu"; break;
         }
-        var sId = sDrawingId + sApp + GoBoardApi.Get_Version();
+        var sId = sDrawingId + sApp + RenjuBoardApi.Get_Version();
 
         var oDiv = document.createElement("div");
         oDiv.setAttribute("id", sId);

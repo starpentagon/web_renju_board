@@ -51,14 +51,14 @@ CBoardSound.prototype.Init = function(sPath, bIE)
         this.m_bIE = true;
 
     var oBody = aBody[0];
-    this.PlaceStone = this.private_AddSound(oBody, "GoBoardApiSoundPlaceStone", sPath + "/Stone.mp3");
-    this.NewMessage = this.private_AddSound(oBody, "GoBoardApiSoundNewMessage", sPath + "/NewMessage.mp3");
+    this.PlaceStone = this.private_AddSound(oBody, "RenjuBoardApiSoundPlaceStone", sPath + "/Stone.mp3");
+    this.NewMessage = this.private_AddSound(oBody, "RenjuBoardApiSoundNewMessage", sPath + "/NewMessage.mp3");
 
-	this.Tick       = this.private_AddSound(oBody, "GoBoardApiSoundTick", "/Src/Files/Tick.ogg");
-	this.TickLast3  = this.private_AddSound(oBody, "GoBoardApiSoundTickLast3", "/Src/Files/TickLast3.ogg");
-	this.Beep       = this.private_AddSound(oBody, "GoBoardApiSoundBeep", "/Src/Files/Beep.wav");
-	this.BeepBeep   = this.private_AddSound(oBody, "GoBoardApiSoundBeepBeep", "/Src/Files/BeepBeep.wav");
-	this.Challenger = this.private_AddSound(oBody, "GoBoardApiSoundChallenger", "/Src/Files/Challenger.wav");
+	this.Tick       = this.private_AddSound(oBody, "RenjuBoardApiSoundTick", "/Src/Files/Tick.ogg");
+	this.TickLast3  = this.private_AddSound(oBody, "RenjuBoardApiSoundTickLast3", "/Src/Files/TickLast3.ogg");
+	this.Beep       = this.private_AddSound(oBody, "RenjuBoardApiSoundBeep", "/Src/Files/Beep.wav");
+	this.BeepBeep   = this.private_AddSound(oBody, "RenjuBoardApiSoundBeepBeep", "/Src/Files/BeepBeep.wav");
+	this.Challenger = this.private_AddSound(oBody, "RenjuBoardApiSoundChallenger", "/Src/Files/Challenger.wav");
 };
 CBoardSound.prototype.Play_PlaceStone = function()
 {

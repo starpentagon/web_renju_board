@@ -1,6 +1,18 @@
 "use strict";
 
 /**
+ * Copyright (C) 2017, Koichi Nabetani <admin@starpentagon.net>,
+   Web Renju board is developed by modifying the GoProject libraries.
+   
+   This file contains Original Code and/or Modifications of Original Code 
+   distributed in the HtmlGoBoard project: https://github.com/IlyaKirillov/GoProject.
+
+  Original source codes are:
+   Copyright 2014 the HtmlGoBoard project authors.
+   Originally under LGPL v3.0 in https://github.com/IlyaKirillov/GoProject.
+*/
+
+/**
  * Copyright 2014 the HtmlGoBoard project authors.
  * All rights reserved.
  * Project  WebSDK
@@ -13,7 +25,7 @@
  * Апи для работы с данной библиотекой.
  * @constructor
  */
-function CGoBoardApi()
+function CRenjuBoardApi()
 {
 
 }
@@ -22,7 +34,7 @@ function CGoBoardApi()
  * Создаем основной объект GameTree, который будет хранит саму партию.
  * @returns {CGameTree}
  */
-CGoBoardApi.prototype.Create_GameTree = function()
+CRenjuBoardApi.prototype.Create_GameTree = function()
 {
     return new CGameTree();
 };
@@ -32,7 +44,7 @@ CGoBoardApi.prototype.Create_GameTree = function()
  * @param {CGameTree} oGameTree
  * @param {string} sDivId
  */
-CGoBoardApi.prototype.Create_SimpleBoard = function(oGameTree, sDivId)
+CRenjuBoardApi.prototype.Create_SimpleBoard = function(oGameTree, sDivId)
 {
     var oDrawing = new CDrawing(oGameTree);
     oDrawing.Create_SimpleBoard(sDivId);
@@ -43,7 +55,7 @@ CGoBoardApi.prototype.Create_SimpleBoard = function(oGameTree, sDivId)
  * @param {CGameTree} oGameTree
  * @param {string} sDivId
  */
-CGoBoardApi.prototype.Create_Viewer = function(oGameTree, sDivId, isBooklet)
+CRenjuBoardApi.prototype.Create_Viewer = function(oGameTree, sDivId, isBooklet)
 {
     var oDrawing = new CDrawing(oGameTree);
 
@@ -58,7 +70,7 @@ CGoBoardApi.prototype.Create_Viewer = function(oGameTree, sDivId, isBooklet)
  * @param {CGameTree} oGameTree
  * @param {string} sDivId
  */
-CGoBoardApi.prototype.Create_EditorVer = function(oGameTree, sDivId)
+CRenjuBoardApi.prototype.Create_EditorVer = function(oGameTree, sDivId)
 {
     var oDrawing = new CDrawing(oGameTree);
     oDrawing.Create_VerticalFullTemplate(sDivId);
@@ -69,7 +81,7 @@ CGoBoardApi.prototype.Create_EditorVer = function(oGameTree, sDivId)
  * @param {CGameTree} oGameTree
  * @param {string} sDivId
  */
-CGoBoardApi.prototype.Create_EditorHor = function(oGameTree, sDivId)
+CRenjuBoardApi.prototype.Create_EditorHor = function(oGameTree, sDivId)
 {
     var oDrawing = new CDrawing(oGameTree);
     oDrawing.Create_HorizontalFullTemplate(sDivId);
@@ -80,7 +92,7 @@ CGoBoardApi.prototype.Create_EditorHor = function(oGameTree, sDivId)
  * @param {CGameTree} oGameTree
  * @param {string} sDivId
  */
-CGoBoardApi.prototype.Create_BoardWithNavigateButtons = function(oGameTree, sDivId)
+CRenjuBoardApi.prototype.Create_BoardWithNavigateButtons = function(oGameTree, sDivId)
 {
     var oDrawing = new CDrawing(oGameTree);
     oDrawing.Create_BoardWithNavigateButtons(sDivId);
@@ -90,7 +102,7 @@ CGoBoardApi.prototype.Create_BoardWithNavigateButtons = function(oGameTree, sDiv
  * @param {CGameTree} oGameTree
  * @param {string} sDivId
  */
-CGoBoardApi.prototype.Create_BoardCommentsButtonsNavigator = function(oGameTree, sDivId)
+CRenjuBoardApi.prototype.Create_BoardCommentsButtonsNavigator = function(oGameTree, sDivId)
 {
     var oDrawing = new CDrawing(oGameTree);
     oDrawing.Create_MixedFullTemplate(sDivId);
@@ -99,7 +111,7 @@ CGoBoardApi.prototype.Create_BoardCommentsButtonsNavigator = function(oGameTree,
 /**
  * Создаем демонстрационный вариант
  */
-CGoBoardApi.prototype.Create_Presentation = function(oGameTree, sDivId, aSlides)
+CRenjuBoardApi.prototype.Create_Presentation = function(oGameTree, sDivId, aSlides)
 {
     var oPresentation = new CPresentation(oGameTree);
     oPresentation.Init(sDivId, aSlides);
@@ -108,7 +120,7 @@ CGoBoardApi.prototype.Create_Presentation = function(oGameTree, sDivId, aSlides)
 /**
  * Создаем вариант для задачек
  */
-CGoBoardApi.prototype.Create_Problems = function(oGameTree, sDivId, oPr)
+CRenjuBoardApi.prototype.Create_Problems = function(oGameTree, sDivId, oPr)
 {
     var oDrawing = new CDrawing(oGameTree);
     oDrawing.Create_Problems(sDivId);
@@ -142,7 +154,7 @@ CGoBoardApi.prototype.Create_Problems = function(oGameTree, sDivId, oPr)
  * Ищем правильный вариант решения задачи. Если такого варианта нет возвращается false, если есть, тогда
  * возвращаем true и делаем вариант с правильной нодой текущим.
  */
-CGoBoardApi.prototype.Find_ProblemRightVariant = function(oGameTree)
+CRenjuBoardApi.prototype.Find_ProblemRightVariant = function(oGameTree)
 {
     return oGameTree.Find_ProblemRightVariant();
 };
@@ -150,7 +162,7 @@ CGoBoardApi.prototype.Find_ProblemRightVariant = function(oGameTree)
 /**
  * Стартуем автопроигрывание
  */
-CGoBoardApi.prototype.Start_AutoPlay = function(oGameTree)
+CRenjuBoardApi.prototype.Start_AutoPlay = function(oGameTree)
 {
     oGameTree.Start_AutoPlay(true);
 };
@@ -158,7 +170,7 @@ CGoBoardApi.prototype.Start_AutoPlay = function(oGameTree)
 /**
  * Останавливаем автопроигрывание
  */
-CGoBoardApi.prototype.Stop_AutoPlay = function(oGameTree)
+CRenjuBoardApi.prototype.Stop_AutoPlay = function(oGameTree)
 {
     oGameTree.Stop_AutoPlay();
 };
@@ -175,7 +187,7 @@ CGoBoardApi.prototype.Stop_AutoPlay = function(oGameTree)
  * @param {boolean} oFlags.GameInfo
  * @param {boolean} oFlags.ViewPort
  */
-CGoBoardApi.prototype.Set_Permissions = function(oGameTree, oFlags)
+CRenjuBoardApi.prototype.Set_Permissions = function(oGameTree, oFlags)
 {
     var _Flags = {};
 
@@ -193,7 +205,7 @@ CGoBoardApi.prototype.Set_Permissions = function(oGameTree, oFlags)
 /**
  * Загружаем Sgf в GameTree.
  */
-CGoBoardApi.prototype.Load_Sgf = function(oGameTree, sSgfFile, _oViewPort, sMoveReference, sExt)
+CRenjuBoardApi.prototype.Load_Sgf = function(oGameTree, sSgfFile, _oViewPort, sMoveReference, sExt)
 {
     var oViewPort = {};
 
@@ -224,7 +236,7 @@ CGoBoardApi.prototype.Load_Sgf = function(oGameTree, sSgfFile, _oViewPort, sMove
 /**
  * Сохраняем Sgf в виде строки
  */
-CGoBoardApi.prototype.Save_Sgf = function(oGameTree)
+CRenjuBoardApi.prototype.Save_Sgf = function(oGameTree)
 {
     return oGameTree.Save_Sgf();
 };
@@ -236,7 +248,7 @@ CGoBoardApi.prototype.Save_Sgf = function(oGameTree)
  * были в файле изначально. В слабой ссылка просто указывает на место, но не сохраняет ее как самостоятельный вариант.
  * @param {number} [nType=0] - 0 (undefined) - CurNode, 1 - StartNode
  */
-CGoBoardApi.prototype.Get_MoveReference = function(oGameTree, bStrong, nType)
+CRenjuBoardApi.prototype.Get_MoveReference = function(oGameTree, bStrong, nType)
 {
     var oNode;
     if (1 === nType)
@@ -252,7 +264,7 @@ CGoBoardApi.prototype.Get_MoveReference = function(oGameTree, bStrong, nType)
  * @param {CGameTree} oGameTree - Ссылка на основной класс.
  * @param {string} sMoveReference - Ссылка на стартовую ноду.
  */
-CGoBoardApi.prototype.Set_StartNodeByReference = function(oGameTree, sMoveReference)
+CRenjuBoardApi.prototype.Set_StartNodeByReference = function(oGameTree, sMoveReference)
 {
     if (oGameTree && sMoveReference)
     {
@@ -266,7 +278,7 @@ CGoBoardApi.prototype.Set_StartNodeByReference = function(oGameTree, sMoveRefere
 /**
  * Проверяем, делались ли какие-либо изменения в файле с момента открытия.
  */
-CGoBoardApi.prototype.Is_Modified = function(oGameTree)
+CRenjuBoardApi.prototype.Is_Modified = function(oGameTree)
 {
     return oGameTree.Is_Modified();
 };
@@ -274,7 +286,7 @@ CGoBoardApi.prototype.Is_Modified = function(oGameTree)
 /**
  * Функция обновления размеров всех графических объектов.
  */
-CGoBoardApi.prototype.Update_Size = function(oGameTree)
+CRenjuBoardApi.prototype.Update_Size = function(oGameTree)
 {
     oGameTree.Update_Size();
 };
@@ -282,7 +294,7 @@ CGoBoardApi.prototype.Update_Size = function(oGameTree)
 /**
  * Получаем название матча.
  */
-CGoBoardApi.prototype.Get_MatchName = function(oGameTree)
+CRenjuBoardApi.prototype.Get_MatchName = function(oGameTree)
 {
     if (oGameTree)
         return oGameTree.Get_MatchName();
@@ -294,12 +306,12 @@ CGoBoardApi.prototype.Get_MatchName = function(oGameTree)
 /**
  * Функция для выставления звука.
  */
-CGoBoardApi.prototype.Set_Sound = function(oGameTree, sPath)
+CRenjuBoardApi.prototype.Set_Sound = function(oGameTree, sPath)
 {
     oGameTree.Set_Sound(sPath);
 };
 
-CGoBoardApi.prototype.Focus = function(oGameTree)
+CRenjuBoardApi.prototype.Focus = function(oGameTree)
 {
     if (oGameTree)
         oGameTree.Focus();
@@ -308,7 +320,7 @@ CGoBoardApi.prototype.Focus = function(oGameTree)
 /**
  * Получить текущую версию библиотеки.
  */
-CGoBoardApi.prototype.Get_Version = function()
+CRenjuBoardApi.prototype.Get_Version = function()
 {
     return this.Version;
 };
@@ -316,7 +328,7 @@ CGoBoardApi.prototype.Get_Version = function()
 /**
  * Включение/выключение координат на доске
  */
-CGoBoardApi.prototype.Toggle_Rulers = function (oGameTree)
+CRenjuBoardApi.prototype.Toggle_Rulers = function (oGameTree)
 {
     if (oGameTree)
         oGameTree.Toggle_Rulers();
@@ -327,7 +339,7 @@ CGoBoardApi.prototype.Toggle_Rulers = function (oGameTree)
  * Функции:
  * Handler.GoTo_Node(NodeId)
  */
-CGoBoardApi.prototype.Set_GameTreeHandler = function(oGameTree, oHandler)
+CRenjuBoardApi.prototype.Set_GameTreeHandler = function(oGameTree, oHandler)
 {
     if (oGameTree && oHandler)
         oGameTree.Set_Handler(oHandler);
@@ -336,7 +348,7 @@ CGoBoardApi.prototype.Set_GameTreeHandler = function(oGameTree, oHandler)
 /**
  * Переход к ноде по заданному Id ноды
  */
-CGoBoardApi.prototype.GoTo_Node = function(oGameTree, sNodeId)
+CRenjuBoardApi.prototype.GoTo_Node = function(oGameTree, sNodeId)
 {
     if (oGameTree)
         oGameTree.GoTo_NodeById(sNodeId);
@@ -345,7 +357,7 @@ CGoBoardApi.prototype.GoTo_Node = function(oGameTree, sNodeId)
 /**
  * Переход к ноде по заданному номеру хода в текущей ветке.
  */
-CGoBoardApi.prototype.GoTo_NodeByMoveNumber = function(oGameTree, nMoveNumber)
+CRenjuBoardApi.prototype.GoTo_NodeByMoveNumber = function(oGameTree, nMoveNumber)
 {
     if (oGameTree)
         oGameTree.GoTo_NodeByMoveNumber(nMoveNumber);
@@ -354,7 +366,7 @@ CGoBoardApi.prototype.GoTo_NodeByMoveNumber = function(oGameTree, nMoveNumber)
 /**
  * Прячем или показываем курсор.
  */
-CGoBoardApi.prototype.Set_ShowTarget = function(oGameTree, bShow)
+CRenjuBoardApi.prototype.Set_ShowTarget = function(oGameTree, bShow)
 {
     if (oGameTree)
         oGameTree.Set_ShowTarget(bShow, true);
@@ -363,7 +375,7 @@ CGoBoardApi.prototype.Set_ShowTarget = function(oGameTree, bShow)
 /**
  * Выставляем тему доски для текущей сессии, перекрывающую тему пользователя.
  */
-CGoBoardApi.prototype.Set_BoardTheme = function(oGameTree, sTheme)
+CRenjuBoardApi.prototype.Set_BoardTheme = function(oGameTree, sTheme)
 {
     if (oGameTree)
     {
@@ -386,7 +398,7 @@ CGoBoardApi.prototype.Set_BoardTheme = function(oGameTree, sTheme)
 /**
  * Получем минимальную высоту необходимую для дивки, исходя из заданной ширины.
  */
-CGoBoardApi.prototype.Get_DivHeightByWidth = function(oGameTree, nWidth)
+CRenjuBoardApi.prototype.Get_DivHeightByWidth = function(oGameTree, nWidth)
 {
     if (oGameTree)
         return oGameTree.Get_DivHeightByWidth(nWidth);
@@ -395,7 +407,7 @@ CGoBoardApi.prototype.Get_DivHeightByWidth = function(oGameTree, nWidth)
 /**
  * Функция, которая встраивает доску с заданными параметрами.
  */
-CGoBoardApi.prototype.Embed = function (sDivId, oConfig)
+CRenjuBoardApi.prototype.Embed = function (sDivId, oConfig)
 {
     var nMoveNumber = -1;
     var oViewPort   = null;
@@ -590,38 +602,38 @@ CGoBoardApi.prototype.Embed = function (sDivId, oConfig)
     return oGameTree;
 };
 
-window['GoBoardApi'] = new CGoBoardApi();
+window['RenjuBoardApi'] = new CRenjuBoardApi();
 
-CGoBoardApi.prototype['Embed']                                = CGoBoardApi.prototype.Embed;
-CGoBoardApi.prototype['Create_GameTree']                      = CGoBoardApi.prototype.Create_GameTree;
+CRenjuBoardApi.prototype['Embed']                                = CRenjuBoardApi.prototype.Embed;
+CRenjuBoardApi.prototype['Create_GameTree']                      = CRenjuBoardApi.prototype.Create_GameTree;
 
-CGoBoardApi.prototype['Create_SimpleBoard']                   = CGoBoardApi.prototype.Create_SimpleBoard;
-CGoBoardApi.prototype['Create_Viewer']                        = CGoBoardApi.prototype.Create_Viewer;
-CGoBoardApi.prototype['Create_EditorHor']                     = CGoBoardApi.prototype.Create_EditorHor;
-CGoBoardApi.prototype['Create_EditorVer']                     = CGoBoardApi.prototype.Create_EditorVer;
-CGoBoardApi.prototype['Create_BoardWithNavigateButtons']      = CGoBoardApi.prototype.Create_BoardWithNavigateButtons;
-CGoBoardApi.prototype['Create_BoardCommentsButtonsNavigator'] = CGoBoardApi.prototype.Create_BoardCommentsButtonsNavigator;
-CGoBoardApi.prototype['Create_Presentation']                  = CGoBoardApi.prototype.Create_Presentation;
-CGoBoardApi.prototype['Create_Problems']                      = CGoBoardApi.prototype.Create_Problems;
+CRenjuBoardApi.prototype['Create_SimpleBoard']                   = CRenjuBoardApi.prototype.Create_SimpleBoard;
+CRenjuBoardApi.prototype['Create_Viewer']                        = CRenjuBoardApi.prototype.Create_Viewer;
+CRenjuBoardApi.prototype['Create_EditorHor']                     = CRenjuBoardApi.prototype.Create_EditorHor;
+CRenjuBoardApi.prototype['Create_EditorVer']                     = CRenjuBoardApi.prototype.Create_EditorVer;
+CRenjuBoardApi.prototype['Create_BoardWithNavigateButtons']      = CRenjuBoardApi.prototype.Create_BoardWithNavigateButtons;
+CRenjuBoardApi.prototype['Create_BoardCommentsButtonsNavigator'] = CRenjuBoardApi.prototype.Create_BoardCommentsButtonsNavigator;
+CRenjuBoardApi.prototype['Create_Presentation']                  = CRenjuBoardApi.prototype.Create_Presentation;
+CRenjuBoardApi.prototype['Create_Problems']                      = CRenjuBoardApi.prototype.Create_Problems;
 
-CGoBoardApi.prototype['Set_Permissions']                      = CGoBoardApi.prototype.Set_Permissions;
-CGoBoardApi.prototype['Load_Sgf']                             = CGoBoardApi.prototype.Load_Sgf;
-CGoBoardApi.prototype['Save_Sgf']                             = CGoBoardApi.prototype.Save_Sgf;
-CGoBoardApi.prototype['Get_MoveReference']                    = CGoBoardApi.prototype.Get_MoveReference;
-CGoBoardApi.prototype['Set_StartNodeByReference']             = CGoBoardApi.prototype.Set_StartNodeByReference;
-CGoBoardApi.prototype['Is_Modified']                          = CGoBoardApi.prototype.Is_Modified;
-CGoBoardApi.prototype['Update_Size']                          = CGoBoardApi.prototype.Update_Size;
-CGoBoardApi.prototype['Set_Sound']                            = CGoBoardApi.prototype.Set_Sound;
-CGoBoardApi.prototype['Find_ProblemRightVariant']             = CGoBoardApi.prototype.Find_ProblemRightVariant;
-CGoBoardApi.prototype['Start_AutoPlay']                       = CGoBoardApi.prototype.Start_AutoPlay;
-CGoBoardApi.prototype['Stop_AutoPlay']                        = CGoBoardApi.prototype.Stop_AutoPlay;
-CGoBoardApi.prototype['Focus']                                = CGoBoardApi.prototype.Focus;
-CGoBoardApi.prototype['Get_MatchName']                        = CGoBoardApi.prototype.Get_MatchName;
-CGoBoardApi.prototype['Get_Version']                          = CGoBoardApi.prototype.Get_Version;
-CGoBoardApi.prototype['Toggle_Rulers']                        = CGoBoardApi.prototype.Toggle_Rulers;
-CGoBoardApi.prototype['Set_GameTreeHandler']                  = CGoBoardApi.prototype.Set_GameTreeHandler;
-CGoBoardApi.prototype['GoTo_Node']                            = CGoBoardApi.prototype.GoTo_Node;
-CGoBoardApi.prototype['GoTo_NodeByMoveNumber']                = CGoBoardApi.prototype.GoTo_NodeByMoveNumber;
-CGoBoardApi.prototype['Set_ShowTarget']                       = CGoBoardApi.prototype.Set_ShowTarget;
-CGoBoardApi.prototype['Get_DivHeightByWidth']                 = CGoBoardApi.prototype.Get_DivHeightByWidth;
-CGoBoardApi.prototype['Set_BoardTheme']                       = CGoBoardApi.prototype.Set_BoardTheme;
+CRenjuBoardApi.prototype['Set_Permissions']                      = CRenjuBoardApi.prototype.Set_Permissions;
+CRenjuBoardApi.prototype['Load_Sgf']                             = CRenjuBoardApi.prototype.Load_Sgf;
+CRenjuBoardApi.prototype['Save_Sgf']                             = CRenjuBoardApi.prototype.Save_Sgf;
+CRenjuBoardApi.prototype['Get_MoveReference']                    = CRenjuBoardApi.prototype.Get_MoveReference;
+CRenjuBoardApi.prototype['Set_StartNodeByReference']             = CRenjuBoardApi.prototype.Set_StartNodeByReference;
+CRenjuBoardApi.prototype['Is_Modified']                          = CRenjuBoardApi.prototype.Is_Modified;
+CRenjuBoardApi.prototype['Update_Size']                          = CRenjuBoardApi.prototype.Update_Size;
+CRenjuBoardApi.prototype['Set_Sound']                            = CRenjuBoardApi.prototype.Set_Sound;
+CRenjuBoardApi.prototype['Find_ProblemRightVariant']             = CRenjuBoardApi.prototype.Find_ProblemRightVariant;
+CRenjuBoardApi.prototype['Start_AutoPlay']                       = CRenjuBoardApi.prototype.Start_AutoPlay;
+CRenjuBoardApi.prototype['Stop_AutoPlay']                        = CRenjuBoardApi.prototype.Stop_AutoPlay;
+CRenjuBoardApi.prototype['Focus']                                = CRenjuBoardApi.prototype.Focus;
+CRenjuBoardApi.prototype['Get_MatchName']                        = CRenjuBoardApi.prototype.Get_MatchName;
+CRenjuBoardApi.prototype['Get_Version']                          = CRenjuBoardApi.prototype.Get_Version;
+CRenjuBoardApi.prototype['Toggle_Rulers']                        = CRenjuBoardApi.prototype.Toggle_Rulers;
+CRenjuBoardApi.prototype['Set_GameTreeHandler']                  = CRenjuBoardApi.prototype.Set_GameTreeHandler;
+CRenjuBoardApi.prototype['GoTo_Node']                            = CRenjuBoardApi.prototype.GoTo_Node;
+CRenjuBoardApi.prototype['GoTo_NodeByMoveNumber']                = CRenjuBoardApi.prototype.GoTo_NodeByMoveNumber;
+CRenjuBoardApi.prototype['Set_ShowTarget']                       = CRenjuBoardApi.prototype.Set_ShowTarget;
+CRenjuBoardApi.prototype['Get_DivHeightByWidth']                 = CRenjuBoardApi.prototype.Get_DivHeightByWidth;
+CRenjuBoardApi.prototype['Set_BoardTheme']                       = CRenjuBoardApi.prototype.Set_BoardTheme;

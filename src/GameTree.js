@@ -1553,10 +1553,19 @@ CGameTree.prototype.Init_Match = function()
 };
 CGameTree.prototype.private_UpdateNextMove = function(CurMoveValue)
 {
-    if (BOARD_BLACK === CurMoveValue)
+    if (BOARD_BLACK === CurMoveValue){
+        if(this.Is_CurrentMovePass()){
+            this.m_nBlackPassCount++;
+        }
+
         this.private_SetNextMove(BOARD_WHITE);
-    else
+    }else{
+        if(this.Is_CurrentMovePass()){
+            this.m_nWhitePassCount++;
+        }
+
         this.private_SetNextMove(BOARD_BLACK);
+    }
 
     this.m_nMovesCount++;
 };
