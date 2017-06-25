@@ -1826,7 +1826,7 @@ CDrawingAboutWindow.prototype.Init = function(_sDivId, oPr)
     this.m_oGameTree = oPr.GameTree;
 
     var oTabs = new CDrawingVerticalTabs();
-    oTabs.Init(this.HtmlElement.InnerDiv.id, ["About Web Go Board", "Keyboard Shortcuts"], 0);
+    oTabs.Init(this.HtmlElement.InnerDiv.id, ["Web Renju Board", "Keyboard Shortcuts"], 0);
 
     this.private_InitAboutPage(oTabs.Get_TabContent(0));
     this.private_InitKeyBoardShortcutsPage(oTabs.Get_TabContent(1), oPr);
@@ -1862,13 +1862,6 @@ CDrawingAboutWindow.prototype.private_InitAboutPage = function(oDiv)
     oDivMainPart.style.color      = "#666";
     oDivMainPart.style.background = "#fff";
 
-    var oLogo            = document.createElement("img");
-    oLogo.src            = g_sLogo100;
-    oLogo.width          = 100;
-    oLogo.height         = 100;
-    oLogo.style['float'] = "left";
-    oDivMainPart.appendChild(oLogo);
-
     var oMargin            = document.createElement("div");
     oMargin.style.width    = "10px";
     oMargin.style.height   = "100px";
@@ -1877,7 +1870,7 @@ CDrawingAboutWindow.prototype.private_InitAboutPage = function(oDiv)
 
     var oHeading = document.createElement("h1");
     oDivMainPart.appendChild(oHeading);
-    Common.Set_InnerTextToElement(oHeading, "Web Go/Baduk Board");
+    Common.Set_InnerTextToElement(oHeading, "Web Renju Board");
 
     var oVersion = document.createElement("div");
     oDivMainPart.appendChild(oVersion);
@@ -1886,12 +1879,12 @@ CDrawingAboutWindow.prototype.private_InitAboutPage = function(oDiv)
     var oString              = document.createElement("div");
     oString.style.paddingTop = "40px";
     oDivMainPart.appendChild(oString);
-    Common.Set_InnerTextToElement(oString, "Visit our Github project for feedback and issue reports:");
+    Common.Set_InnerTextToElement(oString, "Visit our GitHub project for feedback and issue reports:");
     oString                  = document.createElement("a");
     oString.target           = "_blank";
-    oString.href             = "https://github.com/IlyaKirillov/GoProject";
+    oString.href             = "https://github.com/starpentagon/web_renju_board";
     oDivMainPart.appendChild(oString);
-    Common.Set_InnerTextToElement(oString, "https://github.com/IlyaKirillov/GoProject");
+    Common.Set_InnerTextToElement(oString, "https://github.com/starpentagon/web_renju_board");
 
     oString                  = document.createElement("div");
     oString.style.paddingTop = "20px";
@@ -1899,46 +1892,39 @@ CDrawingAboutWindow.prototype.private_InitAboutPage = function(oDiv)
     Common.Set_InnerTextToElement(oString, "Our site:");
     oString                  = document.createElement("a");
     oString.target           = "_blank";
+    oString.href             = "http://quinstella.net/";
+    oDivMainPart.appendChild(oString);
+    Common.Set_InnerTextToElement(oString, "http://quinstella.net/");
+
+    var oString              = document.createElement("div");
+    oString.style.paddingTop = "40px";
+    oDivMainPart.appendChild(oString);
+    Common.Set_InnerTextToElement(oString, "Web Renju Board is developed by modifying the Web Go/Baduk Board and GoProject libraries:");
+    oString                  = document.createElement("a");
+    oString.target           = "_blank";
+    oString.href             = "https://github.com/IlyaKirillov/GoProject";
+    oDivMainPart.appendChild(oString);
+    Common.Set_InnerTextToElement(oString, "https://github.com/IlyaKirillov/GoProject");
+
+    var oString              = document.createElement("div");
+    oString.style.paddingTop = "20px";
+    oDivMainPart.appendChild(oString);
+    Common.Set_InnerTextToElement(oString, "Web Go/Baduk Board authors' site:");
+    oString                  = document.createElement("a");
+    oString.target           = "_blank";
     oString.href             = "http://webgoboard.com/";
     oDivMainPart.appendChild(oString);
     Common.Set_InnerTextToElement(oString, "http://webgoboard.com/");
 
     oString                  = document.createElement("div");
-    oString.style.paddingTop = "20px";
-    oDivMainPart.appendChild(oString);
-    Common.Set_InnerTextToElement(oString, "Discussions:");
-    oString                  = document.createElement("a");
-    oString.target           = "_blank";
-    oString.href             = "http://www.lifein19x19.com/forum/viewtopic.php?f=18&t=11239";
-    oDivMainPart.appendChild(oString);
-    Common.Set_InnerTextToElement(oString, "http://www.lifein19x19.com/");
-    oDivMainPart.appendChild(document.createElement("br"));
-    oString                  = document.createElement("a");
-    oString.target           = "_blank";
-    oString.href             = "http://kido.com.ru/253-web-go-doska";
-    oDivMainPart.appendChild(oString);
-    Common.Set_InnerTextToElement(oString, "http://kido.com.ru/");
-
-    oString                  = document.createElement("div");
-    oString.style.paddingTop = "20px";
-    oDivMainPart.appendChild(oString);
-    Common.Set_InnerTextToElement(oString, "Browsers extension:");
-    oString                  = document.createElement("a");
-    oString.target           = "_blank";
-    oString.href             = "https://chrome.google.com/webstore/detail/web-go-board/cdmhoehokaoghadonjfdbhieajggfbmd";
-    oDivMainPart.appendChild(oString);
-    Common.Set_InnerTextToElement(oString, "Chrome and OperaNext");
-    oDivMainPart.appendChild(document.createElement("br"));
-    oString                  = document.createElement("a");
-    oString.target           = "_blank";
-    oString.href             = "https://addons.mozilla.org/ru/firefox/addon/web-gobaduk-board/";
-    oDivMainPart.appendChild(oString);
-    Common.Set_InnerTextToElement(oString, "FireFox");
-
-    oString                  = document.createElement("div");
     oString.style.paddingTop = "30px";
     oDivMainPart.appendChild(oString);
-    Common.Set_InnerTextToElement(oString, "© Ilya Kirillov, 2014-2016. All rights reserved.");
+    Common.Set_InnerTextToElement(oString, "Web Go/Baduk Board: © Ilya Kirillov, 2014-2016. All rights reserved.");
+
+    oString                  = document.createElement("div");
+    oString.style.paddingTop = "10px";
+    oDivMainPart.appendChild(oString);
+    Common.Set_InnerTextToElement(oString, "Web Renju Board: © Koichi Nabetani, 2017. All rights reserved.");
 };
 CDrawingAboutWindow.prototype.private_InitKeyBoardShortcutsPage = function(oDiv, oPr)
 {

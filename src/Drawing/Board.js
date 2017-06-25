@@ -3336,9 +3336,7 @@ CDrawingBoard.prototype.private_HandleKeyDown = function(Event)
         {
             var sGameName = this.m_oGameTree.Get_GameName();
             if ("" === sGameName)
-                sGameName = this.m_oGameTree.Get_WhiteName() + " vs. " + this.m_oGameTree.Get_BlackName();
-            if ("" === sGameName)
-                sGameName = "download";
+                sGameName = this.m_oGameTree.Get_WhiteName() + "_vs_" + this.m_oGameTree.Get_BlackName();
 
             sGameName += ".sgf";
             var oBlob = new Blob([sSgf], {type: "text/plain;charset=utf-8"});

@@ -100,10 +100,10 @@ CSgfWriter.prototype.private_WriteGameInfo = function()
     var oGameTree = this.m_oGameTree;
     var oBoardSize = oGameTree.Get_Board().Get_Size();
 
-    this.private_WriteCommand("GM", 1);
+    this.private_WriteCommand("GM", 4);     // The game type is Gomoku/Renju
     this.private_WriteCommand("FF", 4);
     this.private_WriteCommand("CA", "UTF-8");
-    this.private_WriteCommand("AP", "WebGoBoard:" + GoBoardApi.Get_Version());
+    this.private_WriteCommand("AP", "Web Renju Board:" + GoBoardApi.Get_Version());
     this.private_WriteCommand("ST", oGameTree.Get_ShowVariants());
 
     this.private_WriteNonEmptyCommand("RU", oGameTree.Get_Rules());

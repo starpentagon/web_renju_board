@@ -1,6 +1,18 @@
 "use strict";
 
 /**
+ * Copyright (C) 2017, Koichi Nabetani <admin@starpentagon.net>,
+   Web Renju board is developed by modifying the GoProject libraries.
+   
+   This file contains Original Code and/or Modifications of Original Code 
+   distributed in the HtmlGoBoard project: https://github.com/IlyaKirillov/GoProject.
+
+  Original source codes are:
+   Copyright 2014 the HtmlGoBoard project authors.
+   Originally under LGPL v3.0 in https://github.com/IlyaKirillov/GoProject.
+*/
+
+/**
  * Copyright 2014 the HtmlGoBoard project authors.
  * All rights reserved.
  * Project  WebSDK
@@ -18,17 +30,6 @@ function CBoardSound()
     this.CaptureN   = null;
 
     this.NewMessage = null;
-
-	this.Feemale10 = null;
-	this.Feemale9  = null;
-	this.Feemale8  = null;
-	this.Feemale7  = null;
-	this.Feemale6  = null;
-	this.Feemale5  = null;
-	this.Feemale4  = null;
-	this.Feemale3  = null;
-	this.Feemale2  = null;
-	this.Feemale1  = null;
 
 	this.Tick       = null;
 	this.TickLast3  = null;
@@ -55,22 +56,7 @@ CBoardSound.prototype.Init = function(sPath, bIE)
 
     var oBody = aBody[0];
     this.PlaceStone = this.private_AddSound(oBody, "GoBoardApiSoundPlaceStone", sPath + "/Stone.mp3");
-    this.Capture1   = this.private_AddSound(oBody, "GoBoardApiSoundCapture1",   sPath + "/Capture1.mp3");
-    this.Capture3   = this.private_AddSound(oBody, "GoBoardApiSoundCapture3",   sPath + "/Capture3.mp3");
-    this.Capture5   = this.private_AddSound(oBody, "GoBoardApiSoundCapture5",   sPath + "/Capture5.mp3");
-    this.CaptureN   = this.private_AddSound(oBody, "GoBoardApiSoundCaptureN",   sPath + "/CaptureN.mp3");
     this.NewMessage = this.private_AddSound(oBody, "GoBoardApiSoundNewMessage", sPath + "/NewMessage.mp3");
-
-	this.Feemale10 = this.private_AddSound(oBody, "GoBoardApiSoundFemale10", "");
-	this.Feemale9  = this.private_AddSound(oBody, "GoBoardApiSoundFemale9", "");
-	this.Feemale8  = this.private_AddSound(oBody, "GoBoardApiSoundFemale8", "");
-	this.Feemale7  = this.private_AddSound(oBody, "GoBoardApiSoundFemale7", "");
-	this.Feemale6  = this.private_AddSound(oBody, "GoBoardApiSoundFemale6", "");
-	this.Feemale5  = this.private_AddSound(oBody, "GoBoardApiSoundFemale5", "");
-	this.Feemale4  = this.private_AddSound(oBody, "GoBoardApiSoundFemale4", "");
-	this.Feemale3  = this.private_AddSound(oBody, "GoBoardApiSoundFemale3", "");
-	this.Feemale2  = this.private_AddSound(oBody, "GoBoardApiSoundFemale2", "");
-	this.Feemale1  = this.private_AddSound(oBody, "GoBoardApiSoundFemale1", "");
 
 	this.Tick       = this.private_AddSound(oBody, "GoBoardApiSoundTick", "/Src/Files/Tick.ogg");
 	this.TickLast3  = this.private_AddSound(oBody, "GoBoardApiSoundTickLast3", "/Src/Files/TickLast3.ogg");
@@ -81,18 +67,6 @@ CBoardSound.prototype.Init = function(sPath, bIE)
 CBoardSound.prototype.Play_PlaceStone = function()
 {
     this.private_PlaySound(this.PlaceStone);
-};
-CBoardSound.prototype.Play_CaptureStones = function(nCount)
-{
-    if (nCount <= 1)
-        this.private_PlaySound(this.Capture1);
-    else if (nCount <= 3)
-        this.private_PlaySound(this.Capture3);
-    else if (nCount <= 5)
-        this.private_PlaySound(this.Capture5);
-    else
-        this.private_PlaySound(this.CaptureN);
-
 };
 CBoardSound.prototype.Play_NewMessage = function()
 {
@@ -144,20 +118,6 @@ CBoardSound.prototype.private_PlaySound = function(oAudio)
 };
 CBoardSound.prototype.private_PlayCountDown = function(nValue)
 {
-	// switch (nValue)
-	// {
-	// 	case 10: this.private_PlaySound(this.Feemale10); break;
-	// 	case 9: this.private_PlaySound(this.Feemale9); break;
-	// 	case 8: this.private_PlaySound(this.Feemale8); break;
-	// 	case 7: this.private_PlaySound(this.Feemale7); break;
-	// 	case 6: this.private_PlaySound(this.Feemale6); break;
-	// 	case 5: this.private_PlaySound(this.Feemale5); break;
-	// 	case 4: this.private_PlaySound(this.Feemale4); break;
-	// 	case 3: this.private_PlaySound(this.Feemale3); break;
-	// 	case 2: this.private_PlaySound(this.Feemale2); break;
-	// 	case 1: this.private_PlaySound(this.Feemale1); break;
-	// }
-
 	if (nValue > 3)
 	{
 		this.private_PlaySound(this.Tick);
