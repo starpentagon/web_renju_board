@@ -110,7 +110,6 @@ function CDrawingPlayerInfo(oDrawing)
     this.m_oImage  = null;
     this.m_sName   = "";
     this.m_sRank   = "";
-    this.m_bScores = false;
     this.m_dPassCount = 0;
 }
 CDrawingPlayerInfo.prototype.Init = function(sDivId, oGameTree, nPlayer)
@@ -225,12 +224,6 @@ CDrawingPlayerInfo.prototype.Update_Rank = function(sRank)
     this.m_sRank = sRank;
     this.private_Update();
 };
-CDrawingPlayerInfo.prototype.Update_Captured = function(dCaptured)
-{
-    this.m_bScores = false;
-    this.m_dScores = dCaptured;
-    this.private_Update();
-};
 CDrawingPlayerInfo.prototype.Update_PassCount = function(dPassCount)
 {
     this.m_dPassCount = dPassCount;
@@ -242,7 +235,6 @@ CDrawingPlayerInfo.prototype.private_Update = function()
     var oPassCountDiv = this.HtmlElement.PassCountDiv;
 
     var sNameText   = ("" === this.m_sName ? (BOARD_BLACK === this.m_nPlayer ? "Black " : "White ") : this.m_sName) + ("" === this.m_sRank ? "" : "[" + this.m_sRank +  "]");
-    var sScoresText = (true === this.m_bScores ? "Scores " : "Captured ") + this.m_dScores;
     var sPassCountText = "Pass " + this.m_dPassCount;
 
     Common.Set_InnerTextToElement(oNameDiv, sNameText);

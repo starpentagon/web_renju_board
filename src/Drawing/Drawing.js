@@ -1843,13 +1843,13 @@ CDrawing.prototype.private_UpdateViewerTitle = function()
     if (this.m_oViewerTitle)
         this.m_oViewerTitle.Set_Title(this.m_oGameTree.Get_MatchName());
 };
-CDrawing.prototype.Update_Captured = function(dBlack, dWhite)
+CDrawing.prototype.Update_PassCount = function(dBlack, dWhite)
 {
     if (this.m_oBlackInfo)
-        this.m_oBlackInfo.Update_Captured(dBlack);
+        this.m_oBlackInfo.Update_PassCount(dBlack);
 
     if (this.m_oWhiteInfo)
-        this.m_oWhiteInfo.Update_Captured(dWhite);
+        this.m_oWhiteInfo.Update_PassCount(dWhite);
 };
 CDrawing.prototype.Update_InterfaceState = function(oIState)
 {

@@ -53,9 +53,6 @@ function CGameTree(Drawing)
     this.m_oStartNode        = this.m_oFirstNode; // Стартовая нода для просмотра файла
     this.m_oGameCurNode      = null;              // Активная нода в онлайн игре
 
-    this.m_nBlackCapt        = 0; // количество пленников черного игрока
-    this.m_nWhiteCapt        = 0; // количество пленников белого игрока
-
     this.m_nBlackPassCount   = 0; // Pass count of Black player
     this.m_nWhitePassCount   = 0; // Pass count of White player
 
@@ -1298,14 +1295,6 @@ CGameTree.prototype.Get_MovesCount = function()
 {
     return this.m_nMovesCount;
 };
-CGameTree.prototype.Get_BlackCapt = function()
-{
-    return this.m_nBlackCapt;
-};
-CGameTree.prototype.Get_WhiteCapt = function()
-{
-    return this.m_nWhiteCapt;
-};
 CGameTree.prototype.Get_BlackPassCount = function()
 {
     return this.m_nBlackPassCount;
@@ -1556,8 +1545,8 @@ CGameTree.prototype.Set_BoardSize = function(_W, _H)
 CGameTree.prototype.Init_Match = function()
 {
     this.Set_CurNode(this.m_oFirstNode);
-    this.m_nBlackCapt    = 0;
-    this.m_nWhiteCapt    = 0;
+    this.m_nBlackPassCount = 0;
+    this.m_nWhitePassCount = 0;
     this.m_nMovesCount   = 0;
     this.m_nCurNodeDepth = 0;
     this.m_nNextMove     = BOARD_BLACK;
@@ -1622,7 +1611,7 @@ CGameTree.prototype.Update_InterfaceState = function(bUpdateInfo)
         this.m_oDrawing.Update_InterfaceState(oIState);
 
         if (this.m_oDrawingBoard)
-            this.m_oDrawing.Update_Captured(this.Get_BlackCapt(), this.Get_WhiteCapt());
+            this.m_oDrawing.Update_PassCount(this.Get_BlackPassCount(), this.Get_WhitePassCount());
 
         if (bUpdateInfo)
         {
