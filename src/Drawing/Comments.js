@@ -1,6 +1,18 @@
 "use strict";
 
 /**
+ * Copyright (C) 2017, Koichi Nabetani <admin@starpentagon.net>,
+   Web Renju board is developed by modifying the GoProject libraries.
+   
+   This file contains Original Code and/or Modifications of Original Code 
+   distributed in the HtmlGoBoard project: https://github.com/IlyaKirillov/GoProject.
+
+  Original source codes are:
+   Copyright 2014 the HtmlGoBoard project authors.
+   Originally under LGPL v3.0 in https://github.com/IlyaKirillov/GoProject.
+*/
+
+/**
  * Copyright 2014 the HtmlGoBoard project authors.
  * All rights reserved.
  * Project  WebSDK
@@ -239,123 +251,6 @@ CDrawingPlayerInfo.prototype.private_Update = function()
     var Canvas = document.createElement("canvas").getContext("2d");
     Canvas.font = "14pt Times New Roman";
     this.m_dTextWidth = Canvas.measureText(sNameText).width;
-};
-
-function CDrawingViewerScores(oDrawing)
-{
-    this.m_oDrawing  = oDrawing;
-    this.m_oGameTree = null;
-
-    this.HtmlElement =
-    {
-        Control    : null,
-        ScoresWDiv : null,
-        ScoresBDiv : null,
-        ImageW     : null,
-        ImageB     : null
-    };
-
-    this.m_dScoresW = 0;
-    this.m_dScoresB = 0;
-}
-CDrawingViewerScores.prototype.Init = function(sDivId, oGameTree)
-{
-    this.m_oGameTree = oGameTree;
-
-    this.HtmlElement.Control          = CreateControlContainer(sDivId);
-    var oDivElement                   = this.HtmlElement.Control.HtmlElement;
-    oDivElement.style.backgroundColor = new CColor(217, 217, 217, 255).ToString();
-
-    this.HtmlElement.ScoresWDiv = document.createElement("div");
-    this.HtmlElement.ImageW     = document.createElement("canvas");
-    this.HtmlElement.ScoresBDiv = document.createElement("div");
-    this.HtmlElement.ImageB     = document.createElement("canvas");
-
-    oDivElement.appendChild(this.HtmlElement.ScoresWDiv);
-    oDivElement.appendChild(this.HtmlElement.ImageW);
-    oDivElement.appendChild(this.HtmlElement.ScoresBDiv);
-    oDivElement.appendChild(this.HtmlElement.ImageB);
-
-    this.HtmlElement.ImageW.style.position = "absolute";
-    this.HtmlElement.ImageW.style.left     = "0px";
-    this.HtmlElement.ImageW.style.top      = "0px";
-
-    this.HtmlElement.ScoresWDiv.style.position     = "absolute";
-    this.HtmlElement.ScoresWDiv.style.left         = "25px";
-    this.HtmlElement.ScoresWDiv.style.top          = "0px";
-    this.HtmlElement.ScoresWDiv.style.overflow     = "hidden";
-    this.HtmlElement.ScoresWDiv.style.textOverflow = "ellipsis";
-    this.HtmlElement.ScoresWDiv.style.height       = "25px";
-    this.HtmlElement.ScoresWDiv.style.fontFamily   = '"Times New Roman", Times, serif';
-    this.HtmlElement.ScoresWDiv.style.fontSize     = "16px";
-    this.HtmlElement.ScoresWDiv.style.lineHeight   = "25px";
-
-    this.HtmlElement.ImageB.style.position = "absolute";
-    this.HtmlElement.ImageB.style.left     = "61px";
-    this.HtmlElement.ImageB.style.top      = "0px";
-
-    this.HtmlElement.ScoresBDiv.style.position     = "absolute";
-    this.HtmlElement.ScoresBDiv.style.left         = "86px";
-    this.HtmlElement.ScoresWDiv.style.top          = "0px";
-    this.HtmlElement.ScoresBDiv.style.overflow     = "hidden";
-    this.HtmlElement.ScoresBDiv.style.textOverflow = "ellipsis";
-    this.HtmlElement.ScoresBDiv.style.height       = "25px";
-    this.HtmlElement.ScoresBDiv.style.fontFamily   = '"Times New Roman", Times, serif';
-    this.HtmlElement.ScoresBDiv.style.fontSize     = "16px";
-    this.HtmlElement.ScoresBDiv.style.lineHeight   = "25px";
-
-    this.private_DrawColor(this.HtmlElement.ImageW, false);
-    this.private_DrawColor(this.HtmlElement.ImageB, true);
-
-    this.private_Update();
-};
-CDrawingViewerScores.prototype.private_DrawColor = function(oImage, bBlack)
-{
-    oImage.setAttribute("oncontextmenu", "return false;");
-    oImage.style.padding = "0px";
-    oImage.style.margin  = "0px";
-    oImage.style.width   = 25 + "px";
-    oImage.style.height  = 25 + "px";
-    oImage.width         = 25;
-    oImage.height        = 25;
-
-    var Canvas = oImage.getContext("2d");
-    var Size = 25;
-    Canvas.clearRect(0, 0, 25, 25);
-
-    var X = Math.ceil(0.5 * Size + 0.5);
-    var Y = Math.ceil(0.5 * Size + 0.5);
-    var R = Math.ceil(0.25 * Size + 0.5);
-    if (bBlack)
-    {
-        Canvas.fillStyle   = (new CColor(0, 0, 0)).ToString();
-        Canvas.strokeStyle = (new CColor(0, 0, 0)).ToString();
-    }
-    else
-    {
-        Canvas.fillStyle   = (new CColor(255, 255, 255)).ToString();
-        Canvas.strokeStyle = (new CColor(0, 0, 0)).ToString();
-    }
-
-    Canvas.beginPath();
-    Canvas.arc(X, Y, R, 0, 2 * Math.PI, false);
-    Canvas.fill();
-    Canvas.stroke();
-};
-CDrawingViewerScores.prototype.Update_Size = function()
-{
-    this.private_Update();
-};
-CDrawingViewerScores.prototype.Update_Scores = function(dWhite, dBlack)
-{
-    this.m_dScoresW = dWhite;
-    this.m_dScoresB = dBlack;
-    this.private_Update();
-};
-CDrawingViewerScores.prototype.private_Update = function()
-{
-    Common.Set_InnerTextToElement(this.HtmlElement.ScoresWDiv, "" + this.m_dScoresW);
-    Common.Set_InnerTextToElement(this.HtmlElement.ScoresBDiv, "" + this.m_dScoresB);
 };
 
 function CDrawingViewerTitle(oDrawing)

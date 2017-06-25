@@ -58,10 +58,10 @@ function CGameTree(Drawing)
     this.m_nBlackCapt        = 0; // количество пленников черного игрока
     this.m_nWhiteCapt        = 0; // количество пленников белого игрока
 
-    this.m_nNextMove         = BOARD_BLACK;
+    this.m_nBlackPassCount   = 0; // Pass count of Black player
+    this.m_nWhitePassCount   = 0; // Pass count of White player
 
-    this.m_nBlackScores      = 0;
-    this.m_nWhiteScores      = 0;
+    this.m_nNextMove         = BOARD_BLACK;
 
     this.m_nMovesCount       = 0; // Количество ходов (не путать с нодами!)
     this.m_nCurNodeDepth     = 0; // Глубина текущей ноды
@@ -1308,19 +1308,13 @@ CGameTree.prototype.Get_WhiteCapt = function()
 {
     return this.m_nWhiteCapt;
 };
-CGameTree.prototype.Get_BlackScores = function()
+CGameTree.prototype.Get_BlackPassCount = function()
 {
-	if (this.m_oHandler && this.m_oHandler["GetBlackScores"])
-		return this.m_oHandler["GetBlackScores"]();
-
-    return this.m_nBlackScores;
+    return this.m_nBlackPassCount;
 };
-CGameTree.prototype.Get_WhiteScores = function()
+CGameTree.prototype.Get_WhitePassCount = function()
 {
-	if (this.m_oHandler && this.m_oHandler["GetWhiteScores"])
-		return this.m_oHandler["GetWhiteScores"];
-
-    return this.m_nWhiteScores;
+    return this.m_nWhitePassCount;
 };
 CGameTree.prototype.Get_CurNodeDepth = function()
 {

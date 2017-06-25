@@ -643,7 +643,6 @@ function CDrawing(oGameTree)
 
     this.m_oBlackInfo      = null;
     this.m_oWhiteInfo      = null;
-    this.m_oViewerScores   = null;
     this.m_oViewerTitle    = null;
 
     // Массив ссылок на окна с комментариями
@@ -839,10 +838,6 @@ CDrawing.prototype.Create_Viewer = function(sDivId)
     oScoresInfoControl.Bounds.SetParams(0, 0, 1000, 1000, false, false, false, false, 122, -1);
     oScoresInfoControl.Anchor = (g_anchor_top | g_anchor_left | g_anchor_bottom);
     oInfoControl.AddControl(oScoresInfoControl);
-
-    this.m_oViewerScores = new CDrawingViewerScores(this);
-    this.m_oViewerScores.Init(sScoresInfo, oGameTree);
-    this.m_aElements.push(this.m_oViewerScores);
 
     var sTitleInfo = sInfoDivId + "T";
     this.private_CreateDiv(oInfoControl.HtmlElement, sTitleInfo);
@@ -1860,9 +1855,6 @@ CDrawing.prototype.Update_Captured = function(dBlack, dWhite)
 
     if (this.m_oWhiteInfo)
         this.m_oWhiteInfo.Update_Captured(dWhite);
-
-    if (this.m_oViewerScores)
-        this.m_oViewerScores.Update_Scores(dWhite, dBlack);
 };
 CDrawing.prototype.Update_Scores = function(dBlack, dWhite)
 {
@@ -1871,9 +1863,6 @@ CDrawing.prototype.Update_Scores = function(dBlack, dWhite)
 
     if (this.m_oWhiteInfo)
         this.m_oWhiteInfo.Update_Scores(dWhite);
-
-    if (this.m_oViewerScores)
-        this.m_oViewerScores.Update_Scores(dWhite, dBlack);
 };
 CDrawing.prototype.Update_InterfaceState = function(oIState)
 {
@@ -2096,11 +2085,6 @@ CDrawing.prototype.Create_ViewerForBooklet = function(sDivId)
     oScoresInfoControl.Bounds.SetParams(159, 0, 1000, 1000, true, false, false, false, 122, -1);
     oScoresInfoControl.Anchor = (g_anchor_top | g_anchor_left | g_anchor_bottom);
     oInfoControl.AddControl(oScoresInfoControl);
-
-    this.m_oViewerScores = new CDrawingViewerScores(this);
-    this.m_oViewerScores.Init(sScoresInfo, oGameTree);
-    this.m_oViewerScores.HtmlElement.Control.HtmlElement.style.backgroundColor = "";
-    this.m_aElements.push(this.m_oViewerScores);
     //------------------------------------------------------------------------------------------------------------------
     // Тулбар
     //------------------------------------------------------------------------------------------------------------------
