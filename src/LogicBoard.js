@@ -19,7 +19,6 @@
 
 function CBoardPoint(eValue, nNum)
 {
-    //this.m_eValue = Math.floor((Math.random() * 3));// (undefined === eValue ? BOARD_EMPTY : eValue);
     this.m_eValue = (undefined === eValue ? BOARD_EMPTY : eValue);
     this.m_nNum   = (undefined === nNum ? - 1 : nNum);
 }
@@ -95,8 +94,8 @@ CAreaScoreCounter.prototype.Update_Board = function(Board, nForceValue)
 };
 function CLogicBoard(nW, nH)
 {
-    this.m_nW = (undefined === nW ? 19 : nW); // количество пересечений по горизонтали
-    this.m_nH = (undefined === nH ? 19 : nH); // количество пересечений по вертикали
+    this.m_nW = (undefined === nW ? 15 : nW); // количество пересечений по горизонтали
+    this.m_nH = (undefined === nH ? 15 : nH); // количество пересечений по вертикали
 
     this.m_aBoard       = null; // Массив, в котором указаны значения пунктов на доске черный/белый/пустой
     this.private_InitBoard();
@@ -247,44 +246,6 @@ CLogicBoard.prototype.Get_ScorePoint = function(nX, nY)
 {
     return this.m_aBoardScores[this.private_GetPos(nX, nY)]
 };
-CLogicBoard.prototype.Count_Scores = function(oDrawingBoard)
-{
-    var nBlackScores = 0;
-    var nWhiteScores = 0;
-
-    for (var Y = 1; Y <= this.m_nH; Y++)
-    {
-        for (var X = 1; X <= this.m_nW; X++)
-        {
-            var oMark = null;
-            var nOwner = this.Get_ScorePoint(X, Y);
-
-            if (BOARD_BLACK === nOwner)
-            {
-                oMark = new CDrawingMark(X, Y, EDrawingMark.Tb, "");
-                if (BOARD_WHITE === this.Get(X, Y))
-                    nBlackScores += 2;
-                else
-                    nBlackScores++;
-            }
-            else if (BOARD_WHITE === nOwner)
-            {
-                oMark = new CDrawingMark(X, Y, EDrawingMark.Tw, "");
-                if (BOARD_BLACK === this.Get(X, Y))
-                    nWhiteScores += 2;
-                else
-                    nWhiteScores++;
-            }
-
-            if (null === oMark)
-                oDrawingBoard.Remove_Mark(X, Y);
-            else
-                oDrawingBoard.Add_Mark(oMark);
-        }
-    }
-
-    return {Black : nBlackScores, White : nWhiteScores};
-};
 CLogicBoard.prototype.private_CheckEmptyAreaByXY = function(X, Y)
 {
     if (X > this.m_nW || X < 1 || Y > this.m_nH || Y < 1)
@@ -334,33 +295,6 @@ CLogicBoard.prototype.private_CheckAllEmptyAreas = function(bCheckDraw)
                 this.private_CheckEmptyAreaByXY( X, Y );
                 this.m_oArea.Update_Board(this);
             }
-        }
-    }
-};
-CLogicBoard.prototype.Get_SE = function(X, Y)
-{
-    if (undefined === this.m_aBoardSE || undefined === this.m_aBoardSE[Y] || undefined === this.m_aBoardSE[Y][X])
-        return BOARD_EMPTY;
-
-    return this.m_aBoardSE[Y][X];
-};
-CLogicBoard.prototype.Set_SE = function(X, Y, Value)
-{
-    if (undefined === this.m_aBoardSE)
-        this.m_aBoardSE = [];
-
-    if (undefined === this.m_aBoardSE[Y])
-        this.m_aBoardSE[Y] = [];
-
-    this.m_aBoardSE[Y][X] = Value;
-};
-CLogicBoard.prototype.private_InitScoreEstimate = function()
-{
-    for (var Y = 1; Y <= this.m_nH; Y++)
-    {
-        for (var X = 1; X <= this.m_nW; X++)
-        {
-            this.Set_SE(X, Y, this.Get(X, Y));
         }
     }
 };

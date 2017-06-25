@@ -1174,20 +1174,6 @@ CGameTree.prototype.Show_Variants = function()
     if (this.m_oDrawingBoard)
         this.m_oCurNode.Show_Variants(this.m_eShowVariants, this.m_oDrawingBoard);
 };
-CGameTree.prototype.Count_Scores = function()
-{
-    if (this.m_oDrawingBoard)
-    {
-        var Scores = this.m_oBoard.Count_Scores(this.m_oDrawingBoard);
-        this.m_oDrawingBoard.Draw_Marks();
-        this.Update_TerritoryMarks();
-
-        this.m_nBlackScores = Scores.Black + this.m_nBlackCapt;
-        this.m_nWhiteScores = Scores.White + this.m_nWhiteCapt + this.m_nKomi;
-
-        this.Update_InterfaceState();
-    }
-};
 CGameTree.prototype.Set_Sound = function(sPath)
 {
     this.m_oSound.Init(sPath);

@@ -1,6 +1,15 @@
 "use strict";
 
 /**
+ * Copyright (C) 2017, Koichi Nabetani <admin@starpentagon.net>,
+   except where otherwise indicated.
+
+  Original source codes are:
+   Copyright 2014 the HtmlGoBoard project authors.
+   Originally under LGPL v3.0 in https://github.com/IlyaKirillov/GoProject.
+*/
+
+/**
  * Copyright 2014 the HtmlGoBoard project authors.
  * All rights reserved.
  * Project  WebSDK
@@ -1458,84 +1467,6 @@ CDrawingSettingsWindow.prototype.private_CheckColorTheme = function()
     {
         this.HtmlElement2.Theme.TrueColor.checked = true;
     }
-};
-
-function CDrawingScoreEstimateWindow()
-{
-    CDrawingScoreEstimateWindow.superclass.constructor.call(this);
-
-    this.m_oDrawingBoard = null;
-}
-
-CommonExtend(CDrawingScoreEstimateWindow, CDrawingWindow);
-
-CDrawingScoreEstimateWindow.prototype.Init = function(_sDivId, oPr)
-{
-    CDrawingScoreEstimateWindow.superclass.Init.call(this, _sDivId, true);
-
-    this.protected_UpdateSizeAndPosition(oPr.Drawing);
-
-    this.m_oGameTree = oPr.GameTree;
-
-    this.Set_Caption("Score estimate");
-
-    var oMainDiv     = this.HtmlElement.InnerDiv;
-    var oMainControl = this.HtmlElement.InnerControl;
-    var sMainId      = this.HtmlElement.InnerDiv.id;
-
-    oMainDiv.style.background = "url(\'" + g_sBackground + "\')";
-    var oDrawingBoard = new CDrawingBoard();
-    oMainControl.Set_Type(2, oDrawingBoard);
-
-    var sBoard = sMainId + "B";
-    var oBoardElement = this.protected_CreateDivElement(oMainDiv, sBoard);
-    var oBoardControl = CreateControlContainer(sBoard);
-    oBoardControl.Bounds.SetParams(0, 0, 1000, 1000, true, true, false, false, -1, -1);
-    oBoardControl.Anchor = (g_anchor_top | g_anchor_left | g_anchor_bottom | g_anchor_right);
-    oMainControl.AddControl(oBoardControl);
-
-    this.m_oBoardDiv = oBoardElement;
-    this.m_oBoardControl = oBoardControl;
-
-    oDrawingBoard.Init(sBoard, this.m_oGameTree.Copy_ForScoreEstimate());
-    oDrawingBoard.Set_EstimateMode(this);
-
-    this.m_oDrawingBoard = oDrawingBoard;
-};
-CDrawingScoreEstimateWindow.prototype.Update_Size = function(bForce)
-{
-    CDrawingScoreEstimateWindow.superclass.Update_Size.call(this, bForce);
-
-    if (this.m_oDrawingBoard)
-        this.m_oDrawingBoard.Update_Size(bForce);
-};
-CDrawingScoreEstimateWindow.prototype.On_EstimateEnd = function(BlackReal, WhiteReal, BlackPotential, WhitePotential, nResult)
-{
-    var sCaption;
-    if (window.g_oLocalization)
-        sCaption = window.g_oLocalization.common.shortBlack + " " + BlackReal + "(" + BlackPotential + ") " +  window.g_oLocalization.common.shortWhite + " " + WhiteReal + "(" + WhitePotential + ") " + (nResult > 0 ?  window.g_oLocalization.common.shortBlack + "+" + nResult : (nResult < 0 ?  window.g_oLocalization.common.shortWhite + "+" + Math.abs(nResult) : window.g_oLocalization.common.gameResult.even));
-    else
-        sCaption = "B " + BlackReal + "(" + BlackPotential + ") W " + WhiteReal + "(" + WhitePotential + ") " + (nResult > 0 ? "B+" + nResult : (nResult < 0 ? "W+" + Math.abs(nResult) : "Even"));
-
-    this.Set_Caption(sCaption);
-};
-CDrawingScoreEstimateWindow.prototype.Show = function(oPr)
-{
-    while (this.m_oBoardDiv.firstChild)
-        this.m_oBoardDiv.removeChild(this.m_oBoardDiv.firstChild);
-
-    if (this.m_oBoardControl)
-        this.m_oBoardControl.Clear();
-
-    var oDrawingBoard = new CDrawingBoard();
-    oDrawingBoard.Init(this.m_oBoardDiv.id, oPr.GameTree.Copy_ForScoreEstimate());
-    oDrawingBoard.Set_EstimateMode(this);
-
-    this.m_oDrawingBoard = oDrawingBoard;
-
-    CDrawingScoreEstimateWindow.superclass.Show.apply(this, arguments);
-    // Для перерисовки позиции
-    this.Update_Size(true);
 };
 
 function CDrawingCountColorsWindow()
@@ -3422,7 +3353,6 @@ function CreateWindow(sDrawingId, nWindowType, oPr)
             case EWindowType.GameInfo      : oWindow = new CDrawingInfoWindow(); break;
             case EWindowType.Settings      : oWindow = new CDrawingSettingsWindow(); break;
             case EWindowType.Error         : oWindow = new CDrawingErrorWindow(); break;
-            case EWindowType.ScoreEstimate : oWindow = new CDrawingScoreEstimateWindow(); break;
             case EWindowType.CountColors   : oWindow = new CDrawingCountColorsWindow(); break;
             case EWindowType.GifWriter     : oWindow = new CDrawingGifWriterWindow(); break;
             case EWindowType.About         : oWindow = new CDrawingAboutWindow(); break;

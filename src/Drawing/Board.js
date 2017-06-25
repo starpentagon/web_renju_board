@@ -28,7 +28,6 @@ var EBoardMode =
     AddMarkX      : 6,
     AddMarkTx     : 7,
     AddMarkNum    : 8,
-    ScoreEstimate : 9,
     AddMarkColor  : 10,
     ViewPort      : 11
 };
@@ -672,11 +671,6 @@ CDrawingBoard.prototype.Set_LastMoveMark = function(X, Y)
 {
     this.private_SetLastMoveMark(X, Y);
 };
-CDrawingBoard.prototype.Set_EstimateMode = function(oEventsCatcher)
-{
-    this.m_oEventsCatcher = oEventsCatcher;
-    this.Set_Mode(EBoardMode.ScoreEstimate);
-};
 CDrawingBoard.prototype.Set_ViewPortMode = function()
 {
     this.Set_Mode(EBoardMode.ViewPort);
@@ -691,7 +685,7 @@ CDrawingBoard.prototype.Set_GameTree = function(oGameTree)
 };
 CDrawingBoard.prototype.Set_Mode = function(eMode)
 {
-    if (!(this.m_oGameTree.m_nEditingFlags & EDITINGFLAGS_BOARDMODE) && eMode !== EBoardMode.ScoreEstimate && eMode !== EBoardMode.ViewPort)
+    if (!(this.m_oGameTree.m_nEditingFlags & EDITINGFLAGS_BOARDMODE) && eMode !== EBoardMode.ViewPort)
         return;
 
     if (this.m_eMode !== eMode)
@@ -1936,16 +1930,6 @@ CDrawingBoard.prototype.private_UpdateTargetType = function()
 
         break;
     }
-    case EBoardMode.ScoreEstimate:
-    {
-        var ValueSE = this.m_oLogicBoard.Get_SE(X, Y);
-        if (BOARD_BLACK === ValueSE)
-            eTargetType = EBoardTargetType.WhiteX;
-        else if (BOARD_WHITE === ValueSE)
-            eTargetType = EBoardTargetType.BlackX;
-
-        break;
-    }
     case EBoardMode.AddMarkColor:
     {
         if (global_mouseEvent.CtrlKey && !global_mouseEvent.ShiftKey)
@@ -2614,7 +2598,6 @@ CDrawingBoard.prototype.private_HandleMouseDown = function(X, Y, event)
         case EBoardMode.AddMarkX     : this.private_AddX             (X,Y, event); break;
         case EBoardMode.AddMarkTx    : this.private_AddText          (X,Y, event); break;
         case EBoardMode.AddMarkNum   : this.private_AddNum           (X,Y, event); break;
-        case EBoardMode.ScoreEstimate: this.private_ScoreEstimate    (X,Y, event); break;
         case EBoardMode.AddMarkColor : this.private_AddColorMark     (X,Y, event); break;
         case EBoardMode.ViewPort     : this.private_StartViewPortSelection(X,Y, event); break;
     }
@@ -3187,7 +3170,7 @@ CDrawingBoard.prototype.private_CanMakeMove = function(X, Y)
 };
 CDrawingBoard.prototype.private_HandleKeyDown = function(Event)
 {
-    if (EBoardMode.ScoreEstimate === this.m_eMode || EBoardMode.ViewPort === this.m_eMode)
+    if (EBoardMode.ViewPort === this.m_eMode)
         return;
 
 	var oHandler = this.m_oGameTree.Get_Handler();
