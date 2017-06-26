@@ -1495,7 +1495,7 @@ CDrawing.prototype.Create_Problems = function(sDivId)
 
     var oDrawingBoard = new CDrawingBoard(this);
     var oParentControl = CreateControlContainer(sDivId);
-    var sMainDivId = sDivId + "GoBoard";
+    var sMainDivId = sDivId + "RenjuBoard";
     this.private_CreateDiv(oParentControl.HtmlElement, sMainDivId);
     var oMainControl = CreateControlContainer(sMainDivId);
     oMainControl.Bounds.SetParams(0, 0, 1, 1, false, false, true, true, -1, -1);
