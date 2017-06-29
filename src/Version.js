@@ -3,11 +3,11 @@
    Web Renju board is developed by modifying the GoProject libraries.
    
    This file contains Original Code and/or Modifications of Original Code 
-   distributed in the HtmlGoBoard project: https://github.com/IlyaKirillov/GoProject.
+   distributed in the HtmlGoBoard project.
 
-  Original source codes are:
-   Copyright 2014 the HtmlGoBoard project authors.
-   Originally under LGPL v3.0 in https://github.com/IlyaKirillov/GoProject.
+   Original Code is:
+    Copyright 2014 the HtmlGoBoard project authors.
+    Originally under LGPL v3.0 in https://github.com/IlyaKirillov/GoProject.
 */
 
 /**
