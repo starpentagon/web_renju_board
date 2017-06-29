@@ -2179,6 +2179,7 @@ CDrawingBoard.prototype.private_DrawRulers = function()
 {
     if (true === this.m_bRulers && this.m_oImageData.Lines)
     {
+        debugger;
         var BoardCanvas = this.HtmlElement.Board.Control.HtmlElement.getContext("2d");
         var W = this.m_oImageData.W;
         var H = this.m_oImageData.H;
@@ -2195,24 +2196,28 @@ CDrawingBoard.prototype.private_DrawRulers = function()
         else
             BoardCanvas.fillStyle = "rgb(0,0,0)";
 
+        var sNumFont = FontSize + "px Arial";
+        var sChrFont = FontSize + "px Helvetica, Arial, Verdana";
+
         for (var X = this.m_oViewPort.X0; X <= this.m_oViewPort.X1; X++)
         {
             var _X = Lines[X].X - Rad;
             var _Y = this.m_dKoeffOffsetY * H / 3 - Rad;
 
-            var Text = Common_X_to_String(X + 1, oSize.X);
-            var FontFamily = (Common_IsInt(Text) ? "Arial" : "Helvetica, Arial, Verdana");
-            var sFont = FontSize + "px " + FontFamily;
-
-            BoardCanvas.font = sFont;
+            var x_index = X + 1;
+            var x_num = x_index < 10 ? "0" + x_index : "" + x_index;
+            var x_chr = Common_X_to_String(x_index, oSize.X);
 
             var y_offset = d / 2 + FontSize / 3;
-            var x_offset = (d - BoardCanvas.measureText(Text).width) / 2;
+            var x_offset = (d - BoardCanvas.measureText(x_num).width) / 2;
 
-            BoardCanvas.fillText(Text, _X + x_offset, _Y + y_offset);
+            BoardCanvas.font = sNumFont;
+            BoardCanvas.fillText(x_num, _X + x_offset, _Y + y_offset);
 
             _Y = H - this.m_dKoeffOffsetY * H / 3 - Rad;
-            BoardCanvas.fillText(Text, _X + x_offset, _Y + y_offset);
+            x_offset = (d - BoardCanvas.measureText(x_chr).width) / 2;
+            BoardCanvas.font = sChrFont;
+            BoardCanvas.fillText(x_chr, _X + x_offset, _Y + y_offset);
         }
 
         for (var Y = this.m_oViewPort.Y0; Y <= this.m_oViewPort.Y1; Y++)
@@ -2220,19 +2225,19 @@ CDrawingBoard.prototype.private_DrawRulers = function()
             var _X    = this.m_dKoeffOffsetX * W / 3 - Rad;
             var _Y    = Lines[Y].Y - Rad;
 
-            var Text       = (oSize.Y - Y) + "";
-            var FontFamily = (Common_IsInt(Text) ? "Arial" : "Helvetica, Arial, Verdana");
-            var sFont     = FontSize + "px " + FontFamily;
-
-            BoardCanvas.font      = sFont;
+            var y_index = Y + 1;
+            var y_num = y_index < 10 ? "0" + y_index : "" + y_index;
+            var y_chr = Common_X_to_String(y_index, oSize.Y);
 
             var y_offset = d / 2 + FontSize / 3;
-            var x_offset = (d - BoardCanvas.measureText(Text).width) / 2;
+            var x_offset = (d - BoardCanvas.measureText(y_num).width) / 2;
 
-            BoardCanvas.fillText(Text, _X + x_offset, _Y + y_offset);
+            BoardCanvas.font = sNumFont;
+            BoardCanvas.fillText(y_num, _X + x_offset, _Y + y_offset);
 
             _X = W - this.m_dKoeffOffsetX * W / 3 - Rad;
-            BoardCanvas.fillText(Text, _X + x_offset, _Y + y_offset);
+            var x_offset = (d - BoardCanvas.measureText(y_chr).width) / 2;
+            BoardCanvas.fillText(y_chr, _X + x_offset, _Y + y_offset);
         }
     }
 };
@@ -3181,6 +3186,10 @@ CDrawingBoard.prototype.private_HandleKeyDown = function(Event)
             CreateWindow(this.HtmlElement.Control.HtmlElement.id, EWindowType.CreateNew, {GameTree : this.m_oGameTree, Drawing : this.m_oDrawing});
         }
         bRetValue = true;
+    }
+    else if (67 === KeyCode && true === Event.CtrlKey) // Ctrl + C
+    {
+      this.m_oGameTree.CopyToClipboard();
     }
     else if (68 === KeyCode && true === Event.CtrlKey) // Ctrl + D
     {

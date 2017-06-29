@@ -2403,6 +2403,7 @@ CDrawingButtonFileMenu.prototype.InitDefaultMenu = function(bNoLoadFields)
 	var sLoadDisk          = window.g_oLocalization ? window.g_oLocalization.gameRoom.menu.loadFile : "Load from disk";
 	var sLoadClipboard     = window.g_oLocalization ? window.g_oLocalization.gameRoom.menu.loadFileFromClipboard : "Load from clipboard";
 	var sDownload          = window.g_oLocalization ? window.g_oLocalization.gameRoom.menu.downloadSGF : "Download as SGF";
+	var sCopyToClipboard   = window.g_oLocalization ? window.g_oLocalization.gameRoom.menu.copyToClipboard : "Copy to clipboard";
 	var sSnapshot          = window.g_oLocalization ? window.g_oLocalization.gameRoom.menu.createSnapshot : "Create snapshot";
 	var sExportGIF         = window.g_oLocalization ? window.g_oLocalization.gameRoom.menu.exportToGif : "Export to GIF";
 	var sConvertToASCII    = window.g_oLocalization ? window.g_oLocalization.gameRoom.menu.convertToASCIIDiagram : "Convert to ASCII diagram";
@@ -2455,8 +2456,13 @@ CDrawingButtonFileMenu.prototype.InitDefaultMenu = function(bNoLoadFields)
             Common.SaveAs(oBlob, sGameName, "application/x-go-sgf");
         }
     });
+    this.private_CreateMenuItem(oMenuElementWrapper, sCopyToClipboard, function()
+    {
+        oGameTree.CopyToClipboard();
+    });
     this.private_CreateMenuItem(oMenuElementWrapper, sSnapshot, function()
     {
+        debugger;
         oGameTree.Download_PngBoardScreenShot();
     });
     this.private_CreateMenuItem(oMenuElementWrapper, sExportGIF, function()

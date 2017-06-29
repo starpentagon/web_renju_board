@@ -412,6 +412,24 @@ CGameTree.prototype.Save_Sgf = function()
     oWriter.Write(this);
     return oWriter.m_sFile;
 };
+CGameTree.prototype.CopyToClipboard = function()
+{
+  var text_area = document.createElement("textarea");
+
+  text_area.value = this.Save_Sgf();
+  text_area.selectionStart = 0;
+  text_area.selectionEnd = text_area.value.length;
+
+  document.body.appendChild(text_area);
+  text_area.focus();
+
+  var is_copied = document.execCommand("copy");
+  
+  text_area.blur();
+  document.body.removeChild(text_area);
+
+  return is_copied;
+};
 CGameTree.prototype.Set_DrawingBoard = function(DrawingBoard)
 {
     this.m_oDrawingBoard = DrawingBoard;
@@ -1406,9 +1424,9 @@ CGameTree.prototype.Get_MatchName = function()
 {
     var sGameName = this.Get_GameName();
     if ("" === sGameName)
-        sGameName = this.Get_WhiteName() + " vs. " + this.Get_BlackName();
+        sGameName = this.Get_WhiteName() + "_vs_" + this.Get_BlackName();
     if ("" === sGameName)
-        sGameName = "White vs. Black";
+        sGameName = "White_vs_Black";
 
     return sGameName;
 };

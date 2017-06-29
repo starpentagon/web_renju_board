@@ -299,7 +299,7 @@ CRenjuBoardApi.prototype.Get_MatchName = function(oGameTree)
     if (oGameTree)
         return oGameTree.Get_MatchName();
 
-    return "White vs. Black";
+    return "White_vs_Black";
 };
 
 

@@ -204,7 +204,7 @@ function CSettings()
     this.m_bSound = true;
 
     this.m_bLoadUnfinishedFilesOnLastNode = false;
-    this.m_bRulers                        = false;
+    this.m_bRulers                        = true;
     this.m_bCycleThroughVariants          = false;
     this.m_eNavigatorLabels               = ESettingsNavigatorLabels.MoveNumbers;
     this.m_eLoadShowVariants              = ESettingsLoadShowVariants.FromFile;
@@ -248,7 +248,7 @@ CSettings.prototype.Load_FromLocalStorage = function()
 
     // Rulers
     var sRulers    = Common.Get_LocalStorageItem("Rulers");
-    this.m_bRulers = (sRulers === "1" ? true : false);
+    this.m_bRulers = (sRulers === "0" ? false : true);
 
     // MultilevelToolbar
     this.m_bMultiLevelToolbarMainNavigation = Common.Get_LocalStorageItem("MultiLevelToolbarMainNavigation") == "0" ? false : true;

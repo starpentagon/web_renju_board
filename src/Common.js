@@ -526,7 +526,7 @@ CCommon.prototype.Get_LocalStorageItem = function(_name)
 {
     if (undefined !== window.localStorage)
     {
-        var name = "HTMLGoBoard" + _name;
+        var name = "HTMLRenjuBoard" + _name;
         return localStorage.getItem(name);
     }
     return "";
@@ -535,7 +535,7 @@ CCommon.prototype.Set_LocalStorageItem = function(_name, value)
 {
     if (undefined !== window.localStorage)
     {
-        var name = "HTMLGoBoard" + _name;
+        var name = "HTMLRenjuBoard" + _name;
         localStorage.setItem(name, value);
     }
 };
