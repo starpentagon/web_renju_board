@@ -439,8 +439,6 @@ CGameTree.prototype.Reset = function()
     this.Set_GameSource("");
     this.Set_GameTranscriber("");
 
-    this.m_eShowVariants = EShowVariants.None;
-
     this.Init_Match();
 };
 CGameTree.prototype.GoTo_StartNode = function()

@@ -3225,14 +3225,7 @@ CDrawingBoard.prototype.private_HandleKeyDown = function(Event)
         {
             if (this.m_oGameTree && this.m_oGameTree.m_nEditingFlags & EDITINGFLAGS_LOADFILE)
             {
-                if (true === Event.ShiftKey)
-                {
-                    CreateWindow(this.HtmlElement.Control.HtmlElement.id, EWindowType.Clipboard, {GameTree : this.m_oGameTree, Drawing : this.m_oDrawing});
-                }
-                else
-                {
-                    Common.OpenFileDialog(this.m_oGameTree);
-                }
+                Common.OpenFileDialog(this.m_oGameTree);
             }
         }
         bRetValue = true;
@@ -3285,15 +3278,20 @@ CDrawingBoard.prototype.private_HandleKeyDown = function(Event)
         }
         else
         {
-            var eType = this.m_oGameTree.Get_ShowVariants();
-
-            eType++;
-            if (eType > EShowVariants.Max)
-                eType = EShowVariants.Min;
-
-            this.m_oGameTree.Set_ShowVariants(eType);
+            CreateWindow(this.HtmlElement.Control.HtmlElement.id, EWindowType.Clipboard, {GameTree : this.m_oGameTree, Drawing : this.m_oDrawing});
         }
+
         bRetValue = true;
+    }
+    else if (86 === KeyCode && false === Event.CtrlKey && true === Event.ShiftKey)      // Shift + V
+    {
+        var eType = this.m_oGameTree.Get_ShowVariants();
+
+        eType++;
+        if (eType > EShowVariants.Max)
+            eType = EShowVariants.Min;
+
+        this.m_oGameTree.Set_ShowVariants(eType);
     }
     else if (112 === KeyCode) // F1
     {

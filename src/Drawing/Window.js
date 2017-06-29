@@ -1913,7 +1913,7 @@ CDrawingAboutWindow.prototype.private_InitKeyBoardShortcutsPage = function(oDiv,
     this.private_AppendTableHeading1(oTBody,     "Working with Files");
 
     this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 79, ShiftKey : false}, "Open Sgf",                  "Ctrl+O",                                        "Open the Sgf file from disk. (Not in color mode, see below)");
-    this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 79, ShiftKey : true }, "Open Sgf",                          "Ctrl+Shift+O",                                  "Open the Sgf file from source. (Not in color mode, see below)");
+    this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 79, ShiftKey : true }, "Open Sgf",                          "Ctrl+V",                                  "Open the Sgf data from clipboard. (Not in color mode, see below)");
     this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 67, ShiftKey : false}, "Create new",                        "Ctrl+C",                                        "Create new empty board. (not in color mode see below)");
     this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 83, ShiftKey : false}, "Save Sgf",                          "Ctrl+S",                                        "Save Sgf file.");
     this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 72, ShiftKey : false}, "Save png shot",                     "Ctrl+H",                                        "Save board shot in png format.");
@@ -1968,7 +1968,7 @@ CDrawingAboutWindow.prototype.private_InitKeyBoardShortcutsPage = function(oDiv,
     this.private_AppendTableCommonString(oTBody, {CtrlKey : true, KeyCode : 82, ShiftKey : false},  "Clear colors",                      "Ctrl+R",                                       "Clear all colors in the current node.");
     this.private_AppendTableHeading1(oTBody, "Miscellaneous");
     this.private_AppendTableCommonString(oTBody, {CtrlKey : false, KeyCode :  8, ShiftKey : false}, "Remove node",                       "Backspace/Delete",                             "Deletes the current node and all of the following brunches.");
-    this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 86, ShiftKey : false}, "View mode change of the next move", "Ctrl+V",                                       "There are 3 mods: Show all next move variants, show all alternative variants of the current move, show nothing.");
+    this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 86, ShiftKey : false}, "View mode change of the next move", "Shift+V",                                       "There are 3 mods: Show all next move variants, show all alternative variants of the current move, show nothing.");
     this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 82, ShiftKey : false}, "Show/Hide coordinates",             "Ctrl+R",                                       "Show/Hide coordinates. (Not in color mode, see above)");
     this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 77, ShiftKey : true }, "Make the current variant mainly",   "Ctrl+Shift+M",                                 "Make the current variant mainly by uplifting it to the root of the game tree.");
     this.private_AppendTableCommonString(oTBody, {CtrlKey : true,  KeyCode : 85, ShiftKey : true }, "Lift up the current variant",       "Ctrl+Shift+U",                                 "Lift up the current variant.");
