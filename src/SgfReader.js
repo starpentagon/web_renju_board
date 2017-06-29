@@ -685,8 +685,8 @@ CSgfReader.prototype.private_ReadGM = function()
     this.m_nPos += 3;
     var Number = this.private_ReadNumber();
 
-    // Должно быть 1
-    if (1 !== Number)
+    // GM(type of Game) must be 4 for Gomoku/Renju
+    if (4 !== Number)
         this.m_bValidNode = false;
 };
 CSgfReader.prototype.private_ReadLB = function()

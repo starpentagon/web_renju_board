@@ -477,7 +477,7 @@ CRenjuBoardApi.prototype.Embed = function (sDivId, oConfig)
     }
     else
     {
-        sSgfData = "(;FF[4]GM[1]SZ[19])";
+        sSgfData = "(;FF[4]GM[4]SZ[15])";
         Load_Board();
     }
 
