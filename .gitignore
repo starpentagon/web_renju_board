@@ -1,0 +1,11 @@
+# Mac system files
+.DS_Store
+
+# Visual Studio Code setting files
+.vscode
+
+# log files
+*.log
+
+# problem files
+*.csv
