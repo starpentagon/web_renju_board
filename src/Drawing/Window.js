@@ -2634,7 +2634,7 @@ CDrawingClipboardWindow.prototype.Init = function(_sDivId, oPr)
 
     this.protected_UpdateSizeAndPosition(oPr.Drawing);
 
-    this.Set_Caption("Load file from clipboard");
+    this.Set_Caption("Load SGF from clipboard");
 
     var oMainDiv     = this.HtmlElement.ConfirmInnerDiv;
     var oMainControl = this.HtmlElement.ConfirmInnerControl;
