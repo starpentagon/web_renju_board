@@ -2,7 +2,7 @@
 
 /**
  * Copyright (C) 2017, Koichi Nabetani <admin@starpentagon.net>,
-   Web Renju board is developed by modifying the GoProject libraries.
+   Web Renju Board is developed by modifying the GoProject libraries.
    
    This file contains Original Code and/or Modifications of Original Code 
    distributed in the HtmlGoBoard project.
@@ -831,17 +831,10 @@ CDrawing.prototype.Create_Viewer = function(sDivId)
     //------------------------------------------------------------------------------------------------------------------
     // Информация
     //------------------------------------------------------------------------------------------------------------------
-    var sScoresInfo = sInfoDivId + "S";
-    this.private_CreateDiv(oInfoControl.HtmlElement, sScoresInfo);
-    var oScoresInfoControl = CreateControlContainer(sScoresInfo);
-    oScoresInfoControl.Bounds.SetParams(0, 0, 1000, 1000, false, false, false, false, 122, -1);
-    oScoresInfoControl.Anchor = (g_anchor_top | g_anchor_left | g_anchor_bottom);
-    oInfoControl.AddControl(oScoresInfoControl);
-
     var sTitleInfo = sInfoDivId + "T";
     this.private_CreateDiv(oInfoControl.HtmlElement, sTitleInfo);
     var oTitleInfoControl = CreateControlContainer(sTitleInfo);
-    oTitleInfoControl.Bounds.SetParams(122, 0, 1000, 1000, true, false, false, false, -1, -1);
+    oTitleInfoControl.Bounds.SetParams(0, 0, 1000, 1000, true, false, false, false, -1, -1);
     oTitleInfoControl.Anchor = (g_anchor_top | g_anchor_right | g_anchor_bottom);
     oInfoControl.AddControl(oTitleInfoControl);
 

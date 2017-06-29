@@ -44,3 +44,10 @@ done
 yui-compressor ${renjuboard_js_file} > build/renjuboardmin.js
 rm ${renjuboard_js_file}
 
+worpress_plugin=web_builds/wordpress_plugin/renjuboardmin.js
+
+if [ -e ${worpress_plugin} ]; then
+    rm ${worpress_plugin}
+fi
+
+cp build/renjuboardmin.js ${worpress_plugin}
