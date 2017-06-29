@@ -3170,7 +3170,7 @@ CDrawingBoard.prototype.private_HandleKeyDown = function(Event)
         this.private_DrawLogo();
         bRetValue = true;
     }
-    else if (67 === KeyCode && true === Event.CtrlKey) // Ctrl + C
+    else if (78 === KeyCode && true === Event.CtrlKey && true === Event.ShiftKey) // Ctrl + Shift + O
     {
         if (EBoardMode.AddMarkColor === this.m_eMode)
         {
