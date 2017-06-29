@@ -2309,6 +2309,11 @@ CDrawingButtonFileMenu.prototype.Show_Menu = function()
                 }
 
                 oThis.m_oMenuElement.style.display = "block";
+
+                if(oThis.m_nHeight === 0){
+                    oThis.m_nHeight = oThis.m_oMenuElement.clientHeight;
+                }
+            
                 oThis.m_oMenuElement.style.height  = "0px";
 
                 oThis.m_nTransitionId = setTimeout(function ()
