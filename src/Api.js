@@ -533,6 +533,8 @@ CRenjuBoardApi.prototype.Embed = function (sDivId, oConfig)
         else if ("vereditor" === sBoardMode)
         {
             oThis.Create_EditorVer(oGameTree, sDivId);
+            oPermissions["LoadFile"]        = true;
+            oPermissions["GameInfo"]        = true;
             oPermissions["ChangeBoardMode"] = true;
             oPermissions["NewNode"]         = true;
             oPermissions["Move"]            = true;
@@ -541,6 +543,8 @@ CRenjuBoardApi.prototype.Embed = function (sDivId, oConfig)
         else if ("horeditor" === sBoardMode)
         {
             oThis.Create_EditorHor(oGameTree, sDivId);
+            oPermissions["LoadFile"]        = true;
+            oPermissions["GameInfo"]        = true;
             oPermissions["ChangeBoardMode"] = true;
             oPermissions["NewNode"]         = true;
             oPermissions["Move"]            = true;
