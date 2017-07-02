@@ -80,7 +80,7 @@ class WpWebRenjuBoardPlugin {
 				), $atts 
 			) 
 		);
-		$out = "<div style='width:500;height:900px;position:relative' id='" .$divId ."'></div>";
+		$out = "<div class='renju_board' style='width:500;height:900px;position:relative' id='" .$divId ."'></div>";
 		
 		if ($viewport != null && "auto" != $viewport) {				
 			$arrayViewPort = preg_split("/,/", $viewport);

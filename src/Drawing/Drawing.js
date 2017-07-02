@@ -1231,20 +1231,17 @@ CDrawing.prototype.private_CreateHorFullTemplate = function()
     var oDrawingBlackInfo = new CDrawingPlayerInfo(this);
     oDrawingBlackInfo.Init(sBlackInfo, oGameTree, BOARD_BLACK);
 
-    if (true !== bIsEmbedding)
-    {
-        var sMenuButton = sCaTDivId + "_M";
-        this.private_CreateDiv(oCaTControl.HtmlElement, sMenuButton);
-        var oMenuButtonControl = CreateControlContainer(sMenuButton);
-        oMenuButtonControl.Bounds.SetParams(7, 7, 1000, 7, true, true, false, true, 36, 36);
-        oMenuButtonControl.Anchor = (g_anchor_top | g_anchor_left);
-        oCaTControl.AddControl(oMenuButtonControl);
+    var sMenuButton = sCaTDivId + "_M";
+    this.private_CreateDiv(oCaTControl.HtmlElement, sMenuButton);
+    var oMenuButtonControl = CreateControlContainer(sMenuButton);
+    oMenuButtonControl.Bounds.SetParams(7, 7, 1000, 7, true, true, false, true, 36, 36);
+    oMenuButtonControl.Anchor = (g_anchor_top | g_anchor_left);
+    oCaTControl.AddControl(oMenuButtonControl);
 
-        var oDrawingMenuButton = new CDrawingButtonFileMenu(this);
-        oDrawingMenuButton.Init(sMenuButton, oGameTree);
-        this.Register_MenuButton(oDrawingMenuButton);
-        this.m_aElements.push(oDrawingMenuButton);
-    }
+    var oDrawingMenuButton = new CDrawingButtonFileMenu(this);
+    oDrawingMenuButton.Init(sMenuButton, oGameTree);
+    this.Register_MenuButton(oDrawingMenuButton);
+    this.m_aElements.push(oDrawingMenuButton);
     // END INFO
 
     var oDrawingMultilevelToolbar = new CDrawingMultiLevelToolbar(this);
