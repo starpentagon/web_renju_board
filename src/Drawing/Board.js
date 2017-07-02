@@ -2179,7 +2179,6 @@ CDrawingBoard.prototype.private_DrawRulers = function()
 {
     if (true === this.m_bRulers && this.m_oImageData.Lines)
     {
-        debugger;
         var BoardCanvas = this.HtmlElement.Board.Control.HtmlElement.getContext("2d");
         var W = this.m_oImageData.W;
         var H = this.m_oImageData.H;

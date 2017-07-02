@@ -2462,7 +2462,6 @@ CDrawingButtonFileMenu.prototype.InitDefaultMenu = function(bNoLoadFields)
     });
     this.private_CreateMenuItem(oMenuElementWrapper, sSnapshot, function()
     {
-        debugger;
         oGameTree.Download_PngBoardScreenShot();
     });
     this.private_CreateMenuItem(oMenuElementWrapper, sExportGIF, function()
