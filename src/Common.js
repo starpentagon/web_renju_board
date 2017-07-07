@@ -110,17 +110,7 @@ function Common_X_to_String(_X, nSize)
 {
     var Res;
     var X = Math.max(0, Math.min(_X - 1, nSize - 1));
-
-    if (X < 8)
-        Res = String.fromCharCode('A'.charCodeAt(0) + X);
-    else if (X <= 24)
-        Res = String.fromCharCode('A'.charCodeAt(0) + X + 1);
-    else if (X < 33)
-        Res = String.fromCharCode('A'.charCodeAt(0) + X - 25, 'A'.charCodeAt(0) + X - 25);
-    else if (X < 50)
-        Res = String.fromCharCode('A'.charCodeAt(0) + X - 24, 'A'.charCodeAt(0) + X - 24);
-    else
-        Res = String.fromCharCode('A'.charCodeAt(0) + X - 50, 'A'.charCodeAt(0) + X - 50, 'A'.charCodeAt(0) + X - 50);
+    Res = String.fromCharCode('A'.charCodeAt(0) + X);
 
     return Res;
 }
