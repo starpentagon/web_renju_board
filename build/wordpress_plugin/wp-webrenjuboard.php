@@ -112,7 +112,7 @@ class WpWebRenjuBoardPlugin {
 		$config = json_encode($config);
 		
 		$out .= "<script>RenjuBoardApi.Embed('".$divId."',{$config});</script>";
-		
+		$out .= "<script>window.scrollTo(0,0);</script>";
 		return $out;
 	}
 }
