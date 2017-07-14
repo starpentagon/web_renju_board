@@ -19,4 +19,4 @@
  * Time     3:08
  */
 
-CRenjuBoardApi.prototype.Version = "1.0.0";
+CRenjuBoardApi.prototype.Version = "1.0.3";
